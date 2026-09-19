@@ -19,8 +19,8 @@ Aba de consulta que devolve A/B/C a partir do perfil do hóspede.
 2. Subir `index.html`, `fichas.html` e este README.
 3. Settings → Pages → Source: `Deploy from a branch` → branch `main`, pasta `/ (root)`.
 4. Aguardar um minuto. O endereço fica:
-   - Guia: `https://<usuario>.github.io/milano-concierge/`
-   - Fichas: `https://<usuario>.github.io/milano-concierge/fichas.html`
+   - Guia: `http://luccasdecapra.github.io/milano-concierge/`
+   - Fichas: `luccasdecapra.github.io/milano-concierge/fichas.html`
 
 ## Importante sobre os dados das fichas
 
