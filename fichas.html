@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fichas Concierge Milano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#12151b; --panel:#181d26; --panel2:#1f2530; --edge:#2b3342;
+  --ink:#eef1f6; --ink2:#99a3b5; --ink3:#5e6979;
+  --hit:#f2f5fa; --hitink:#12151b;
+  --ok:#3fbf7f; --warn:#e8a33d; --bad:#e2565a;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f2f0ec; --panel:#ffffff; --panel2:#f7f5f1; --edge:#ddd8cf;
+    --ink:#16191f; --ink2:#5f6773; --ink3:#949caa;
+    --hit:#16191f; --hitink:#ffffff;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;height:100%;background:var(--bg);color:var(--ink);
+  font-family:Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+
+/* ---- topo ---- */
+.top{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);
+  border-bottom:1px solid var(--edge);padding:12px 16px 0;
+}
+.brand{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.brand h1{margin:0;font-size:17px;font-weight:700;letter-spacing:-.2px}
+.brand .ct{margin-left:auto;font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.weeks{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.weeks::-webkit-scrollbar{display:none}
+.wk{
+  flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--edge);
+  font-size:13px;font-weight:600;color:var(--ink2);white-space:nowrap;display:flex;gap:7px;align-items:center;
+}
+.wk .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.wk[aria-pressed="true"]{background:var(--hit);color:var(--hitink);border-color:var(--hit)}
+.wk .n{font-variant-numeric:tabular-nums;opacity:.65;font-size:11px}
+
+/* ---- lista ---- */
+main{padding:14px 16px 96px;max-width:760px;margin:0 auto}
+.themeline{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
+.themeline b{font-size:20px;font-weight:700;letter-spacing:-.3px}
+.themeline span{font-size:13px;color:var(--ink2)}
+.bar{height:3px;border-radius:2px;background:var(--edge);overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;transition:width .3s}
+.card{
+  background:var(--panel);border:1px solid var(--edge);border-left:3px solid var(--edge);
+  border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;
+  width:100%;text-align:left;
+}
+.card.done{border-left-color:var(--ok)}
+.card .body{min-width:0;flex:1}
+.card .nm{font-weight:600;font-size:15.5px;line-height:1.25;margin-bottom:3px}
+.card .meta{font-size:12.5px;color:var(--ink2)}
+.card .tags{margin-top:7px;display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11px;padding:2px 7px;border-radius:5px;background:var(--panel2);color:var(--ink2);border:1px solid var(--edge)}
+.tag.sc{color:var(--ok);border-color:var(--ok)}
+.card .st{flex:0 0 auto;font-size:12px;color:var(--ink3);text-align:right;padding-top:2px}
+.card .st b{display:block;font-size:19px;color:var(--ok);font-weight:700;line-height:1.1}
+
+/* ---- ficha ---- */
+.sheet{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;display:none}
+.sheet.open{display:block}
+.sheet .inner{padding:14px 16px calc(env(safe-area-inset-bottom,0px) + 110px);max-width:760px;margin:0 auto}
+.shead{position:sticky;top:0;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--edge);margin-bottom:16px;z-index:5}
+.shead .row{display:flex;gap:12px;align-items:flex-start}
+.shead h2{margin:0;font-size:19px;font-weight:700;line-height:1.2;letter-spacing:-.3px}
+.shead p{margin:5px 0 0;font-size:13px;color:var(--ink2)}
+.x{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--edge);font-size:17px;line-height:1}
+.info{background:var(--panel2);border:1px solid var(--edge);border-radius:10px;padding:11px 13px;margin-bottom:18px;font-size:13px;color:var(--ink2)}
+.info div{margin:3px 0}
+.info a{color:inherit}
+.info b{color:var(--ink);font-weight:600}
+.grp{margin-bottom:18px}
+.grp>label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:7px}
+.grp>label em{font-style:normal;font-weight:400;color:var(--ink3)}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{
+  padding:9px 13px;border-radius:8px;border:1px solid var(--edge);background:var(--panel);
+  font-size:13.5px;color:var(--ink2);line-height:1.2;
+}
+.opt[aria-pressed="true"]{background:var(--hit);color:var(--hitink);border-color:var(--hit);font-weight:600}
+.opt.no[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.mb[aria-pressed="true"]{background:var(--ink3);border-color:var(--ink3);color:#fff}
+.stars{display:flex;gap:6px}
+.star{width:46px;height:44px;border-radius:8px;border:1px solid var(--edge);font-size:16px;font-weight:700;color:var(--ink3)}
+.star[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#06210f}
+.tog{display:flex;gap:6px}
+.tog .opt{flex:1;text-align:center}
+textarea{
+  width:100%;background:var(--panel);color:var(--ink);border:1px solid var(--edge);
+  border-radius:9px;padding:11px;font:inherit;font-size:14.5px;resize:vertical;min-height:74px;
+}
+textarea::placeholder{color:var(--ink3)}
+details{border-top:1px solid var(--edge);padding-top:14px;margin-top:4px}
+details summary{font-size:13.5px;font-weight:600;color:var(--ink2);cursor:pointer;margin-bottom:14px;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+ ";color:var(--ink3)}
+details[open] summary::before{content:"– "}
+.savebar{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--panel);border-top:1px solid var(--edge);
+  padding:11px 16px calc(env(safe-area-inset-bottom,0px) + 11px);display:flex;gap:10px;align-items:center;
+}
+.savebar .msg{font-size:12.5px;color:var(--ink2);flex:1}
+.btn{padding:11px 20px;border-radius:9px;background:var(--hit);color:var(--hitink);font-weight:700;font-size:14.5px}
+.btn.ghost{background:none;border:1px solid var(--edge);color:var(--ink2);font-weight:600}
+
+/* ---- abas ---- */
+.tabs{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;background:var(--panel);
+  border-top:1px solid var(--edge);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.tabs button{flex:1;padding:12px 4px 13px;font-size:12px;color:var(--ink3);font-weight:600}
+.tabs button[aria-selected="true"]{color:var(--ink)}
+.tabs button span{display:block;font-size:17px;margin-bottom:2px}
+
+/* ---- consulta ---- */
+.res{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:14px;margin-bottom:10px}
+.res .rk{font-size:12px;font-weight:700;color:var(--ink3);margin-bottom:5px}
+.res .nm{font-size:17px;font-weight:700;margin-bottom:5px;letter-spacing:-.2px}
+.res .meta{font-size:13px;color:var(--ink2);margin-bottom:8px}
+.res .why{font-size:13.5px;line-height:1.5}
+.res .why b{font-weight:600}
+.empty{border:1px dashed var(--edge);border-radius:10px;padding:26px 18px;text-align:center;color:var(--ink2);font-size:14px}
+pre.csv{background:var(--panel);border:1px solid var(--edge);border-radius:9px;padding:11px;font-size:10.5px;
+  max-height:240px;overflow:auto;white-space:pre;color:var(--ink2)}
+.hint{font-size:12.5px;color:var(--ink3);margin:8px 0 0}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <h1>Fichas Concierge Milano</h1>
+    <span class="ct" id="count"></span>
+  </div>
+  <div id="weekwrap"><div class="weeks" id="weeks"></div></div>
+</header>
+
+<main>
+  <section id="pane-fichas">
+    <div class="themeline"><b id="theme"></b><span id="themesub"></span></div>
+    <div class="bar"><i id="bar"></i></div>
+    <div id="list"></div>
+  </section>
+  <section id="pane-consulta" style="display:none">
+    <div class="themeline"><b>Quem é o hóspede</b></div>
+    <div id="query"></div>
+    <div class="themeline" style="margin-top:22px"><b>Resultado</b></div>
+    <div id="qout"></div>
+  </section>
+  <section id="pane-export" style="display:none">
+    <div class="themeline"><b>Suas anotações</b></div>
+    <div id="export"></div>
+  </section>
+</main>
+
+<div class="sheet" id="sheet"><div class="inner" id="sheetinner"></div>
+  <div class="savebar">
+    <span class="msg" id="msg"></span>
+    <button class="btn" id="sheetsave">Pronto</button>
+  </div>
+</div>
+
+<nav class="tabs">
+  <button id="tab-fichas" aria-selected="true"><span>▤</span>Fichas</button>
+  <button id="tab-consulta" aria-selected="false"><span>◎</span>Consulta</button>
+  <button id="tab-export" aria-selected="false"><span>↧</span>Exportar</button>
+</nav>
+
+<script>
+const D = {"places": [{"id": "p000", "sem": 1, "nome": "Duomo di Milano — Catedral", "cat": "Monumento", "bairro": "Duomo", "end": "Piazza del Duomo", "tel": "", "site": "duomomilano.it", "fecha": "Nunca", "hor": "~9:00–19:00 (varia)", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M1/M3 Duomo"}, {"id": "p001", "sem": 1, "nome": "Duomo — Terrazze (terraços)", "cat": "Monumento", "bairro": "Duomo", "end": "Piazza del Duomo", "tel": "", "site": "duomomilano.it", "fecha": "Nunca", "hor": "~9:00–19:00", "faixaBase": "€€", "reserva": "Recomendada", "dur": 60, "transp": "M1/M3 Duomo"}, {"id": "p002", "sem": 1, "nome": "Museo del Duomo", "cat": "Museu", "bairro": "Duomo", "end": "Piazza del Duomo 12", "tel": "", "site": "duomomilano.it", "fecha": "Quarta", "hor": "10:00–19:00", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M1/M3 Duomo"}, {"id": "p003", "sem": 1, "nome": "Galleria Vittorio Emanuele II", "cat": "Monumento", "bairro": "Duomo", "end": "Piazza del Duomo", "tel": "", "site": "", "fecha": "Nunca", "hor": "Sempre aberta", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M1/M3 Duomo"}, {"id": "p004", "sem": 1, "nome": "Teatro alla Scala — Museo Teatrale", "cat": "Museu", "bairro": "Duomo", "end": "Largo Ghiringhelli 1", "tel": "", "site": "teatroallascala.org", "fecha": "Nunca", "hor": "9:30–17:30 (últ. 17:00)", "faixaBase": "€€", "reserva": "Recomendada", "dur": 60, "transp": "M1 Cordusio / M3 Montenapoleone"}, {"id": "p005", "sem": 1, "nome": "Museo del Novecento", "cat": "Museu", "bairro": "Duomo", "end": "Via Marconi 1 (Arengario)", "tel": "", "site": "museodelnovecento.org", "fecha": "Segunda", "hor": "10:00–19:30; qui até 22:30", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M1/M3 Duomo"}, {"id": "p006", "sem": 1, "nome": "Palazzo Reale", "cat": "Museu", "bairro": "Duomo", "end": "Piazza del Duomo 12", "tel": "", "site": "", "fecha": "Segunda", "hor": "Varia por exposição", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M1/M3 Duomo"}, {"id": "p007", "sem": 1, "nome": "Gallerie d'Italia", "cat": "Museu", "bairro": "Duomo", "end": "Piazza della Scala 6", "tel": "", "site": "gallerieditalia.com", "fecha": "Segunda", "hor": "", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M1 Cordusio"}, {"id": "p008", "sem": 1, "nome": "Camparino in Galleria", "cat": "Aperitivo", "bairro": "Duomo", "end": "Piazza del Duomo 21", "tel": "+39 02 8646 4435", "site": "camparino.com", "fecha": "", "hor": "Bar di Passo até ~23h", "faixaBase": "€€€", "reserva": "Recomendada", "dur": 60, "transp": "M1/M3 Duomo"}, {"id": "p009", "sem": 1, "nome": "Marchesi 1824", "cat": "Café/Pasticceria", "bairro": "Duomo", "end": "Galleria Vittorio Emanuele II", "tel": "+39 02 9418 1710", "site": "marchesi1824.com", "fecha": "", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 45, "transp": "M1/M3 Duomo"}, {"id": "p010", "sem": 1, "nome": "Cracco", "cat": "Alta gastronomia", "bairro": "Duomo", "end": "Galleria Vittorio Emanuele II", "tel": "+39 02 876774", "site": "ristorantecracco.it", "fecha": "", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 150, "transp": "M1/M3 Duomo"}, {"id": "p011", "sem": 1, "nome": "La Rinascente + terraço", "cat": "Loja/Moda", "bairro": "Duomo", "end": "Piazza del Duomo", "tel": "", "site": "rinascente.it", "fecha": "Nunca", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 60, "transp": "M1/M3 Duomo"}, {"id": "p012", "sem": 1, "nome": "Piazza dei Mercanti", "cat": "Monumento", "bairro": "Duomo", "end": "Piazza dei Mercanti", "tel": "", "site": "", "fecha": "Nunca", "hor": "Sempre aberta", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 20, "transp": "M1 Cordusio"}, {"id": "p013", "sem": 1, "nome": "Park Hyatt — La Cupola / Mio Lab", "cat": "Hotel", "bairro": "Duomo", "end": "Via Tommaso Grossi 1", "tel": "+39 02 8821 1234", "site": "hyatt.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 60, "transp": "M1 Cordusio"}, {"id": "p014", "sem": 1, "nome": "Peck", "cat": "Mercado", "bairro": "Duomo", "end": "Via Spadari 9", "tel": "", "site": "peck.it", "fecha": "Domingo", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 45, "transp": "M1/M3 Duomo"}, {"id": "p015", "sem": 2, "nome": "Pinacoteca di Brera", "cat": "Museu", "bairro": "Brera", "end": "Via Brera 28", "tel": "", "site": "pinacotecabrera.org", "fecha": "Segunda", "hor": "Ter–dom 8:30–19:15 (últ. 18:00)", "faixaBase": "€€", "reserva": "Recomendada", "dur": 120, "transp": "M2 Lanza / M3 Montenapoleone"}, {"id": "p016", "sem": 2, "nome": "Palazzo Citterio (Brera Modern)", "cat": "Museu", "bairro": "Brera", "end": "Via Brera 14", "tel": "", "site": "pinacotecabrera.org", "fecha": "Segunda", "hor": "", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M2 Lanza"}, {"id": "p017", "sem": 2, "nome": "Orto Botanico di Brera", "cat": "Parque", "bairro": "Brera", "end": "Via Brera 28", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M2 Lanza"}, {"id": "p018", "sem": 2, "nome": "Museo Poldi Pezzoli", "cat": "Museu", "bairro": "Brera", "end": "Via Manzoni 12", "tel": "", "site": "museopoldipezzoli.it", "fecha": "Terça", "hor": "Seg e qua–dom 10:00–18:00", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M3 Montenapoleone"}, {"id": "p019", "sem": 2, "nome": "Casa Brera — rooftop Etereo", "cat": "Rooftop", "bairro": "Brera", "end": "Piazzetta M. Bossi 2", "tel": "+39 02 305430", "site": "marriott.com", "fecha": "Nunca", "hor": "Bar 17:00–01:00", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 90, "transp": "M1 Cairoli / M3 Montenapoleone"}, {"id": "p020", "sem": 2, "nome": "Bulgari Hotel — Bar e jardim", "cat": "Hotel", "bairro": "Brera", "end": "Via Privata Fratelli Gabba 7/b", "tel": "+39 02 805 8051", "site": "bulgarihotels.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 75, "transp": "M3 Montenapoleone"}, {"id": "p021", "sem": 2, "nome": "Mandarin Oriental — Seta / bar", "cat": "Hotel", "bairro": "Brera", "end": "Via Andegari 9", "tel": "+39 02 8731 8888", "site": "mandarinoriental.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 120, "transp": "M3 Montenapoleone"}, {"id": "p022", "sem": 2, "nome": "Via Fiori Chiari / Via Madonnina", "cat": "Experiência", "bairro": "Brera", "end": "Brera", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M2 Lanza"}, {"id": "p023", "sem": 2, "nome": "Mercato antiquariato di Brera", "cat": "Mercado", "bairro": "Brera", "end": "Via Fiori Chiari", "tel": "", "site": "", "fecha": "", "hor": "3º domingo do mês (confirmar)", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 60, "transp": "M2 Lanza"}, {"id": "p024", "sem": 2, "nome": "Grand Hotel et de Milan", "cat": "Hotel", "bairro": "Brera", "end": "Via Manzoni 29", "tel": "", "site": "grandhoteletdemilan.it", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 45, "transp": "M3 Montenapoleone"}, {"id": "p025", "sem": 3, "nome": "Cenacolo Vinciano (A Última Ceia)", "cat": "Museu", "bairro": "Sant'Ambrogio", "end": "Piazza Santa Maria delle Grazie 2", "tel": "+39 02 9280 0360", "site": "cenacolovinciano.org", "fecha": "Segunda", "hor": "Ter–dom 8:15–19:00 (últ. 18:45)", "faixaBase": "€€", "reserva": "Obrigatória", "dur": 15, "transp": "M1 Conciliazione / M2 Sant'Ambrogio"}, {"id": "p026", "sem": 3, "nome": "Santa Maria delle Grazie (igreja)", "cat": "Igreja", "bairro": "Sant'Ambrogio", "end": "Piazza Santa Maria delle Grazie", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M1 Conciliazione"}, {"id": "p027", "sem": 3, "nome": "Pinacoteca Ambrosiana + Codex Atlanticus", "cat": "Museu", "bairro": "5Vie", "end": "Piazza Pio XI 2", "tel": "", "site": "ambrosiana.it", "fecha": "Quarta", "hor": "10:00–18:00", "faixaBase": "€€", "reserva": "Recomendada", "dur": 120, "transp": "M1/M3 Duomo"}, {"id": "p028", "sem": 3, "nome": "Cripta di San Sepolcro", "cat": "Igreja", "bairro": "5Vie", "end": "Piazza San Sepolcro", "tel": "", "site": "ambrosiana.it", "fecha": "", "hor": "", "faixaBase": "€", "reserva": "Recomendada", "dur": 30, "transp": "M1 Cordusio"}, {"id": "p029", "sem": 3, "nome": "Castello Sforzesco — Sala delle Asse e Pietà Rondanini", "cat": "Museu", "bairro": "Castello", "end": "Piazza Castello", "tel": "", "site": "comune.milano.it", "fecha": "Segunda", "hor": "Museus ter–dom 10:00–17:30; pátios 7:00–19:30", "faixaBase": "€€", "reserva": "Não precisa", "dur": 120, "transp": "M1 Cairoli / M2 Lanza"}, {"id": "p030", "sem": 3, "nome": "Museo Naz. della Scienza e della Tecnologia Leonardo da Vinci", "cat": "Museu", "bairro": "Sant'Ambrogio", "end": "Via San Vittore 21", "tel": "", "site": "museoscienza.org", "fecha": "Segunda", "hor": "", "faixaBase": "€€", "reserva": "Recomendada", "dur": 150, "transp": "M2 Sant'Ambrogio"}, {"id": "p031", "sem": 3, "nome": "San Maurizio al Monastero Maggiore", "cat": "Igreja", "bairro": "Sant'Ambrogio", "end": "Corso Magenta 15", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M1 Cadorna"}, {"id": "p032", "sem": 3, "nome": "Museo Archeologico", "cat": "Museu", "bairro": "Sant'Ambrogio", "end": "Corso Magenta 15", "tel": "", "site": "", "fecha": "Segunda", "hor": "", "faixaBase": "€", "reserva": "Não precisa", "dur": 60, "transp": "M1 Cadorna"}, {"id": "p033", "sem": 4, "nome": "Santa Maria presso San Satiro (falso coro de Bramante)", "cat": "Igreja", "bairro": "5Vie", "end": "Via Torino 9", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 25, "transp": "M1/M3 Duomo"}, {"id": "p034", "sem": 4, "nome": "San Bernardino alle Ossa (ossário)", "cat": "Igreja", "bairro": "Centro", "end": "Piazza Santo Stefano", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 25, "transp": "M1 San Babila"}, {"id": "p035", "sem": 4, "nome": "Casa degli Omenoni", "cat": "Monumento", "bairro": "Centro", "end": "Via Omenoni", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 10, "transp": "M1/M3 Duomo"}, {"id": "p036", "sem": 4, "nome": "Via Lincoln (a 'Burano' milanesa)", "cat": "Experiência", "bairro": "Porta Venezia", "end": "Via Lincoln", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M1 Porta Venezia"}, {"id": "p037", "sem": 4, "nome": "Villa Invernizzi (flamingos)", "cat": "Experiência", "bairro": "Porta Venezia", "end": "Via Cappuccini 7", "tel": "", "site": "", "fecha": "Nunca", "hor": "Jardim privado, vista da rua", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 15, "transp": "M1 Palestro"}, {"id": "p038", "sem": 4, "nome": "Casa 770", "cat": "Monumento", "bairro": "Porta Venezia", "end": "Via Poerio 35", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 10, "transp": "M1 Porta Venezia"}, {"id": "p039", "sem": 4, "nome": "Cimitero Monumentale", "cat": "Monumento", "bairro": "Sarpi/Monumentale", "end": "Piazzale Cimitero Monumentale", "tel": "", "site": "", "fecha": "Segunda", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 90, "transp": "M5 Monumentale"}, {"id": "p040", "sem": 4, "nome": "5Vie — pátios e antiquários", "cat": "Experiência", "bairro": "5Vie", "end": "Zona 5Vie", "tel": "", "site": "5vie.it", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 60, "transp": "M1 Cordusio"}, {"id": "p041", "sem": 4, "nome": "Ca' Granda (Università Statale)", "cat": "Monumento", "bairro": "Centro", "end": "Via Festa del Perdono 7", "tel": "", "site": "", "fecha": "", "hor": "Pátios", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M3 Missori"}, {"id": "p042", "sem": 4, "nome": "Giardini della Guastalla", "cat": "Parque", "bairro": "Centro", "end": "Via Francesco Sforza", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M4 Sforza-Policlinico"}, {"id": "p043", "sem": 4, "nome": "Abbazia di Chiaravalle", "cat": "Igreja", "bairro": "Chiaravalle", "end": "Via Sant'Arialdo 102", "tel": "", "site": "", "fecha": "", "hor": "Fora do centro", "faixaBase": "Gratuito", "reserva": "Recomendada", "dur": 90, "transp": "Ônibus / carro"}, {"id": "p044", "sem": 4, "nome": "Santa Maria alla Fontana", "cat": "Igreja", "bairro": "Isola", "end": "Piazza Santa Maria alla Fontana", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M5 Zara"}, {"id": "p045", "sem": 5, "nome": "Via Montenapoleone", "cat": "Loja/Moda", "bairro": "Quadrilatero", "end": "Via Monte Napoleone", "tel": "", "site": "", "fecha": "Nunca", "hor": "Lojas ~10:00–19:30", "faixaBase": "€€€€", "reserva": "Appointment", "dur": 60, "transp": "M3 Montenapoleone"}, {"id": "p046", "sem": 5, "nome": "Via della Spiga", "cat": "Loja/Moda", "bairro": "Quadrilatero", "end": "Via della Spiga", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Appointment", "dur": 45, "transp": "M3 Montenapoleone"}, {"id": "p047", "sem": 5, "nome": "Via Sant'Andrea", "cat": "Loja/Moda", "bairro": "Quadrilatero", "end": "Via Sant'Andrea", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Appointment", "dur": 45, "transp": "M1 San Babila"}, {"id": "p048", "sem": 5, "nome": "Palazzo Morando (moda e costume)", "cat": "Museu", "bairro": "Quadrilatero", "end": "Via Sant'Andrea 6", "tel": "", "site": "", "fecha": "Segunda", "hor": "", "faixaBase": "€", "reserva": "Não precisa", "dur": 60, "transp": "M1 San Babila"}, {"id": "p049", "sem": 5, "nome": "Museo Bagatti Valsecchi", "cat": "Museu", "bairro": "Quadrilatero", "end": "Via Gesù 5", "tel": "", "site": "museobagattivalsecchi.org", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Recomendada", "dur": 75, "transp": "M3 Montenapoleone"}, {"id": "p050", "sem": 5, "nome": "Four Seasons Hotel Milano — lobby e Zelo", "cat": "Hotel", "bairro": "Quadrilatero", "end": "Via Gesù 6/8", "tel": "+39 02 77088", "site": "fourseasons.com/milan", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 75, "transp": "M3 Montenapoleone"}, {"id": "p051", "sem": 5, "nome": "Armani Hotel — Armani/Bamboo Bar", "cat": "Hotel", "bairro": "Quadrilatero", "end": "Via Manzoni 31", "tel": "", "site": "armanihotels.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 75, "transp": "M3 Montenapoleone"}, {"id": "p052", "sem": 5, "nome": "Portrait Milano + Piazza del Quadrilatero", "cat": "Hotel", "bairro": "Quadrilatero", "end": "Corso Venezia 11", "tel": "+39 02 3679 95800", "site": "lungarnocollection.com", "fecha": "Nunca", "hor": "10_11 07:00–01:00", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 90, "transp": "M1 San Babila"}, {"id": "p053", "sem": 5, "nome": "Cova Montenapoleone", "cat": "Café/Pasticceria", "bairro": "Quadrilatero", "end": "Via Monte Napoleone 8", "tel": "+39 02 7600 5599", "site": "pasticceriacova.com", "fecha": "", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 45, "transp": "M3 Montenapoleone"}, {"id": "p054", "sem": 5, "nome": "Corso Vercelli", "cat": "Loja/Moda", "bairro": "Corso Vercelli/Pagano", "end": "Corso Vercelli", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 60, "transp": "M1 Conciliazione"}, {"id": "p055", "sem": 6, "nome": "Triennale Milano", "cat": "Museu", "bairro": "Castello", "end": "Viale Alemagna 6", "tel": "", "site": "triennale.org", "fecha": "Segunda", "hor": "Ter–dom 10:30–20:00", "faixaBase": "€€", "reserva": "Recomendada", "dur": 120, "transp": "M1/M2 Cadorna"}, {"id": "p056", "sem": 6, "nome": "ADI Design Museum (Compasso d'Oro)", "cat": "Museu", "bairro": "Sarpi/Monumentale", "end": "Piazza Compasso d'Oro 1", "tel": "", "site": "adidesignmuseum.org", "fecha": "Segunda", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 90, "transp": "M5 Monumentale"}, {"id": "p057", "sem": 6, "nome": "MUDEC — Museo delle Culture", "cat": "Museu", "bairro": "Tortona", "end": "Via Tortona 56", "tel": "", "site": "mudec.it", "fecha": "Segunda", "hor": "10:00–19:30 (ter/qua/sex/sáb/dom); qui até 22:30", "faixaBase": "€€", "reserva": "Recomendada", "dur": 120, "transp": "M2 Porta Genova"}, {"id": "p058", "sem": 6, "nome": "Enrico Bartolini al MUDEC (3 estrelas)", "cat": "Alta gastronomia", "bairro": "Tortona", "end": "Via Tortona 56", "tel": "", "site": "enricobartolini.net", "fecha": "", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 180, "transp": "M2 Porta Genova"}, {"id": "p059", "sem": 6, "nome": "Armani/Silos", "cat": "Museu", "bairro": "Tortona", "end": "Via Bergognone 40", "tel": "", "site": "armanisilos.com", "fecha": "Seg e ter", "hor": "Qua/sex/dom 11:00–19:00; qui/sáb 11:00–21:00", "faixaBase": "€€", "reserva": "Não precisa", "dur": 75, "transp": "M2 Porta Genova"}, {"id": "p060", "sem": 6, "nome": "Via Tortona / Via Bergognone (distrito de design)", "cat": "Experiência", "bairro": "Tortona", "end": "Via Tortona", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 60, "transp": "M2 Porta Genova"}, {"id": "p061", "sem": 6, "nome": "Torre Branca", "cat": "Monumento", "bairro": "Castello", "end": "Viale Camoens (Parco Sempione)", "tel": "", "site": "", "fecha": "", "hor": "Horário variável", "faixaBase": "€", "reserva": "Não precisa", "dur": 30, "transp": "M1/M2 Cadorna"}, {"id": "p062", "sem": 6, "nome": "Parco Sempione e Arco della Pace", "cat": "Parque", "bairro": "Castello", "end": "Parco Sempione", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 60, "transp": "M1 Cairoli"}, {"id": "p063", "sem": 7, "nome": "Villa Necchi Campiglio (FAI)", "cat": "Museu", "bairro": "Porta Venezia", "end": "Via Mozart 14", "tel": "", "site": "fondoambiente.it", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M1 Palestro"}, {"id": "p064", "sem": 7, "nome": "Casa Galimberti (Liberty)", "cat": "Monumento", "bairro": "Porta Venezia", "end": "Via Malpighi 3", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 15, "transp": "M1 Porta Venezia"}, {"id": "p065", "sem": 7, "nome": "Palazzo Castiglioni (Liberty)", "cat": "Monumento", "bairro": "Porta Venezia", "end": "Corso Venezia 47", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 15, "transp": "M1 Palestro"}, {"id": "p066", "sem": 7, "nome": "Giardini Indro Montanelli", "cat": "Parque", "bairro": "Porta Venezia", "end": "Corso Venezia", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M1 Palestro"}, {"id": "p067", "sem": 7, "nome": "Museo di Storia Naturale", "cat": "Museu", "bairro": "Porta Venezia", "end": "Corso Venezia 55", "tel": "", "site": "", "fecha": "Segunda", "hor": "", "faixaBase": "€", "reserva": "Não precisa", "dur": 90, "transp": "M1 Palestro"}, {"id": "p068", "sem": 7, "nome": "Civico Planetario", "cat": "Experiência", "bairro": "Porta Venezia", "end": "Corso Venezia 57", "tel": "", "site": "", "fecha": "", "hor": "Sessões com horário", "faixaBase": "€", "reserva": "Obrigatória", "dur": 60, "transp": "M1 Palestro"}, {"id": "p069", "sem": 7, "nome": "Fondazione Luigi Rovati", "cat": "Museu", "bairro": "Porta Venezia", "end": "Corso Venezia 52", "tel": "", "site": "fondazioneluigirovati.org", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Recomendada", "dur": 90, "transp": "M1 Palestro"}, {"id": "p070", "sem": 7, "nome": "Andrea Aprea (2 estrelas)", "cat": "Alta gastronomia", "bairro": "Porta Venezia", "end": "Corso Venezia 52", "tel": "", "site": "andreaaprea.com", "fecha": "", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 180, "transp": "M1 Palestro"}, {"id": "p071", "sem": 7, "nome": "Bar Basso", "cat": "Bar/Cocktail", "bairro": "Porta Venezia", "end": "Via Plinio 39", "tel": "+39 02 2940 0580", "site": "barbasso.com", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M1 Lima"}, {"id": "p072", "sem": 7, "nome": "Nottingham Forest", "cat": "Bar/Cocktail", "bairro": "Porta Venezia", "end": "Viale Piave 1", "tel": "", "site": "nottingham-forest.com", "fecha": "", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 60, "transp": "M1 Porta Venezia"}, {"id": "p073", "sem": 7, "nome": "Orsonero Coffee", "cat": "Café/Pasticceria", "bairro": "Porta Venezia", "end": "Via Giuseppe Broggi 15", "tel": "+39 353 478 9474", "site": "orsonerocoffee.it", "fecha": "", "hor": "", "faixaBase": "€", "reserva": "Não precisa", "dur": 30, "transp": "M1 Lima"}, {"id": "p074", "sem": 7, "nome": "Joia (alta cozinha vegetariana)", "cat": "Alta gastronomia", "bairro": "Porta Venezia", "end": "Via Panfilo Castaldi 18", "tel": "+39 02 204 9244", "site": "joia.it", "fecha": "", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 150, "transp": "M1 Porta Venezia"}, {"id": "p075", "sem": 8, "nome": "Fondazione Prada", "cat": "Museu", "bairro": "Porta Romana", "end": "Largo Isarco 2", "tel": "", "site": "fondazioneprada.org", "fecha": "Terça", "hor": "~10:00–19:00", "faixaBase": "€€", "reserva": "Recomendada", "dur": 150, "transp": "M3 Lodi T.I.B.B."}, {"id": "p076", "sem": 8, "nome": "Bar Luce (Fondazione Prada)", "cat": "Café/Pasticceria", "bairro": "Porta Romana", "end": "Largo Isarco 2", "tel": "", "site": "fondazioneprada.org", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 45, "transp": "M3 Lodi T.I.B.B."}, {"id": "p077", "sem": 8, "nome": "Trattoria Trippa", "cat": "Trattoria", "bairro": "Porta Romana", "end": "Via Giorgio Vasari 1", "tel": "+39 327 668 7908", "site": "trippamilano.it", "fecha": "", "hor": "", "faixaBase": "€€€", "reserva": "Obrigatória", "dur": 120, "transp": "M3 Porta Romana"}, {"id": "p078", "sem": 8, "nome": "Basilica di San Lorenzo + Colonne", "cat": "Igreja", "bairro": "Ticinese", "end": "Corso di Porta Ticinese 35", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "Bonde 3"}, {"id": "p079", "sem": 8, "nome": "Sant'Eustorgio + Cappella Portinari", "cat": "Igreja", "bairro": "Ticinese", "end": "Piazza Sant'Eustorgio 1", "tel": "", "site": "", "fecha": "", "hor": "", "faixaBase": "€", "reserva": "Não precisa", "dur": 45, "transp": "Bonde 3"}, {"id": "p080", "sem": 8, "nome": "Museo Diocesano Carlo Maria Martini", "cat": "Museu", "bairro": "Ticinese", "end": "Corso di Porta Ticinese 95", "tel": "", "site": "chiostrisanteustorgio.it", "fecha": "Segunda", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 75, "transp": "Bonde 3"}, {"id": "p081", "sem": 8, "nome": "Parco delle Basiliche", "cat": "Parque", "bairro": "Ticinese", "end": "Via Molino delle Armi", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "Bonde 3"}, {"id": "p082", "sem": 8, "nome": "Corso di Porta Romana (passeio)", "cat": "Experiência", "bairro": "Porta Romana", "end": "Corso di Porta Romana", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M3 Crocetta"}, {"id": "p083", "sem": 8, "nome": "Basilica di Sant'Ambrogio", "cat": "Igreja", "bairro": "Sant'Ambrogio", "end": "Piazza Sant'Ambrogio 15", "tel": "", "site": "basilicasantambrogio.it", "fecha": "", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M2 Sant'Ambrogio"}, {"id": "p084", "sem": 9, "nome": "Piazza Gae Aulenti", "cat": "Monumento", "bairro": "Porta Nuova", "end": "Piazza Gae Aulenti", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M2/M5 Garibaldi"}, {"id": "p085", "sem": 9, "nome": "Bosco Verticale", "cat": "Monumento", "bairro": "Porta Nuova", "end": "Via Gaetano de Castillia", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 20, "transp": "M5 Isola"}, {"id": "p086", "sem": 9, "nome": "BAM — Biblioteca degli Alberi", "cat": "Parque", "bairro": "Porta Nuova", "end": "Via Gaetano de Castillia", "tel": "", "site": "bam.milano.it", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M2/M5 Garibaldi"}, {"id": "p087", "sem": 9, "nome": "Corso Como", "cat": "Experiência", "bairro": "Porta Nuova", "end": "Corso Como", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 45, "transp": "M2/M5 Garibaldi"}, {"id": "p088", "sem": 9, "nome": "Ristorante Ratanà", "cat": "Restaurante", "bairro": "Porta Nuova", "end": "Via Gaetano de Castillia 28", "tel": "+39 02 8712 8855", "site": "ratana.it", "fecha": "", "hor": "", "faixaBase": "€€€", "reserva": "Obrigatória", "dur": 120, "transp": "M5 Isola"}, {"id": "p089", "sem": 9, "nome": "Isola (passeio de bairro)", "cat": "Experiência", "bairro": "Isola", "end": "Isola", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M5 Isola"}, {"id": "p090", "sem": 9, "nome": "Pirelli HangarBicocca", "cat": "Museu", "bairro": "Bicocca", "end": "Via Chiese 2", "tel": "", "site": "pirellihangarbicocca.org", "fecha": "", "hor": "Entrada gratuita (confirmar)", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 120, "transp": "M5 Ponale"}, {"id": "p091", "sem": 9, "nome": "Stazione Centrale + Memoriale della Shoah (Binario 21)", "cat": "Monumento", "bairro": "Centrale", "end": "Piazza Duca d'Aosta / Via Ferrante Aporti 3", "tel": "", "site": "memorialeshoah.it", "fecha": "", "hor": "", "faixaBase": "€", "reserva": "Recomendada", "dur": 90, "transp": "M2/M3 Centrale"}, {"id": "p092", "sem": 9, "nome": "Excelsior Hotel Gallia — rooftop", "cat": "Hotel", "bairro": "Centrale", "end": "Piazza Duca d'Aosta 9", "tel": "+39 02 67851", "site": "marriott.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 60, "transp": "M2/M3 Centrale"}, {"id": "p093", "sem": 9, "nome": "Torre Pirelli (exterior)", "cat": "Monumento", "bairro": "Centrale", "end": "Via Fabio Filzi 22", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 15, "transp": "M2/M3 Centrale"}, {"id": "p094", "sem": 10, "nome": "Naviglio Grande", "cat": "Experiência", "bairro": "Navigli", "end": "Alzaia Naviglio Grande", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M2 Porta Genova"}, {"id": "p095", "sem": 10, "nome": "Darsena", "cat": "Experiência", "bairro": "Navigli", "end": "Darsena", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M2 Porta Genova"}, {"id": "p096", "sem": 10, "nome": "Vicolo dei Lavandai", "cat": "Monumento", "bairro": "Navigli", "end": "Vicolo dei Lavandai", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 15, "transp": "M2 Porta Genova"}, {"id": "p097", "sem": 10, "nome": "Ponte delle Gabelle", "cat": "Monumento", "bairro": "Isola", "end": "Via San Marco", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 15, "transp": "M2 Moscova"}, {"id": "p098", "sem": 10, "nome": "Rita Cocktails", "cat": "Bar/Cocktail", "bairro": "Navigli", "end": "Via Angelo Fumagalli 1", "tel": "+39 02 837 2865", "site": "ritacocktails.com", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M2 Porta Genova"}, {"id": "p099", "sem": 10, "nome": "Mercatone dell'Antiquariato", "cat": "Mercado", "bairro": "Navigli", "end": "Alzaia Naviglio Grande", "tel": "", "site": "", "fecha": "", "hor": "Último domingo do mês", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 120, "transp": "M2 Porta Genova"}, {"id": "p100", "sem": 10, "nome": "Mercato Comunale di Porta Genova", "cat": "Mercado", "bairro": "Navigli", "end": "Piazza Sant'Agostino", "tel": "", "site": "", "fecha": "Domingo", "hor": "", "faixaBase": "€", "reserva": "Não precisa", "dur": 45, "transp": "M2 Porta Genova"}, {"id": "p101", "sem": 10, "nome": "Alzaia Naviglio Pavese", "cat": "Experiência", "bairro": "Navigli", "end": "Alzaia Naviglio Pavese", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 45, "transp": "M2 Porta Genova"}, {"id": "p102", "sem": 11, "nome": "CityLife Shopping District", "cat": "Loja/Moda", "bairro": "CityLife", "end": "Piazza Tre Torri", "tel": "", "site": "citylifeshoppingdistrict.it", "fecha": "Nunca", "hor": "", "faixaBase": "€€€", "reserva": "Não precisa", "dur": 90, "transp": "M5 Tre Torri"}, {"id": "p103", "sem": 11, "nome": "Le Tre Torri (Isozaki, Hadid, Libeskind)", "cat": "Monumento", "bairro": "CityLife", "end": "Piazza Tre Torri", "tel": "", "site": "", "fecha": "Nunca", "hor": "Só exterior", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 30, "transp": "M5 Tre Torri"}, {"id": "p104", "sem": 11, "nome": "Parco CityLife", "cat": "Parque", "bairro": "CityLife", "end": "Parco CityLife", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 45, "transp": "M5 Tre Torri"}, {"id": "p105", "sem": 11, "nome": "Stadio Giuseppe Meazza (San Siro) + museu", "cat": "Experiência", "bairro": "San Siro", "end": "Piazzale Angelo Moratti", "tel": "", "site": "", "fecha": "", "hor": "Museu com horário próprio", "faixaBase": "€€", "reserva": "Recomendada", "dur": 120, "transp": "M5 San Siro Stadio"}, {"id": "p106", "sem": 11, "nome": "Casa Milan", "cat": "Experiência", "bairro": "Portello", "end": "Via Aldo Rossi 8", "tel": "", "site": "acmilan.com", "fecha": "", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M5 Portello"}, {"id": "p107", "sem": 11, "nome": "Monte Stella", "cat": "Parque", "bairro": "QT8", "end": "Parco Monte Stella", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "Gratuito", "reserva": "Não precisa", "dur": 60, "transp": "M1 QT8"}, {"id": "p108", "sem": 11, "nome": "Pagano / Corso Vercelli (passeio local)", "cat": "Experiência", "bairro": "Corso Vercelli/Pagano", "end": "Corso Vercelli", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M1 Pagano"}, {"id": "p109", "sem": 12, "nome": "Hotel Principe di Savoia", "cat": "Hotel", "bairro": "Repubblica", "end": "Piazza della Repubblica 17", "tel": "", "site": "dorchestercollection.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 60, "transp": "M3 Repubblica"}, {"id": "p110", "sem": 12, "nome": "Palazzo Parigi Hotel & Grand Spa", "cat": "Hotel", "bairro": "Brera", "end": "Corso di Porta Nuova 1", "tel": "", "site": "palazzoparigi.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 60, "transp": "M3 Turati"}, {"id": "p111", "sem": 12, "nome": "Château Monfort", "cat": "Hotel", "bairro": "Porta Venezia", "end": "Corso Concordia 1", "tel": "", "site": "hotelchateaumonfort.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Recomendada", "dur": 45, "transp": "M4 Tricolore"}, {"id": "p112", "sem": 12, "nome": "Ceresio 7", "cat": "Rooftop", "bairro": "Sarpi/Monumentale", "end": "Via Ceresio 7", "tel": "", "site": "ceresio7.com", "fecha": "Nunca", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 90, "transp": "M5 Monumentale"}, {"id": "p113", "sem": 12, "nome": "Il Ristorante Niko Romito (Bulgari)", "cat": "Alta gastronomia", "bairro": "Brera", "end": "Via Privata Fratelli Gabba 7/b", "tel": "+39 02 805 8051", "site": "bulgarihotels.com", "fecha": "", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 150, "transp": "M3 Montenapoleone"}, {"id": "p114", "sem": 12, "nome": "Seta by Antonio Guida (2 estrelas)", "cat": "Alta gastronomia", "bairro": "Brera", "end": "Via Monte di Pietà 18", "tel": "+39 02 8731 8897", "site": "mandarinoriental.com", "fecha": "", "hor": "", "faixaBase": "€€€€", "reserva": "Obrigatória", "dur": 180, "transp": "M3 Montenapoleone"}, {"id": "p115", "sem": 12, "nome": "Via Paolo Sarpi (Chinatown)", "cat": "Experiência", "bairro": "Sarpi/Monumentale", "end": "Via Paolo Sarpi", "tel": "", "site": "", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M5 Monumentale"}, {"id": "p116", "sem": 12, "nome": "Mercato Centrale Milano", "cat": "Mercado", "bairro": "Centrale", "end": "Via Sammartini 2", "tel": "", "site": "mercatocentrale.it", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M2/M3 Centrale"}, {"id": "p117", "sem": 12, "nome": "Eataly Smeraldo", "cat": "Mercado", "bairro": "Porta Nuova", "end": "Piazza XXV Aprile 10", "tel": "", "site": "eataly.net", "fecha": "Nunca", "hor": "", "faixaBase": "€€", "reserva": "Não precisa", "dur": 60, "transp": "M2 Moscova"}, {"id": "p118", "sem": 12, "nome": "Sinagoga Centrale e zona kosher (oeste)", "cat": "Experiência", "bairro": "Ovest (Soderini/San Gimignano)", "end": "Via della Guastalla (sinagoga)", "tel": "", "site": "", "fecha": "", "hor": "Visita com regras próprias", "faixaBase": "Gratuito", "reserva": "Obrigatória", "dur": 90, "transp": "M1 Bande Nere / M4 Sforza"}], "vocab": {"faixa": ["Gratuito", "€", "€€", "€€€", "€€€€"], "composicao": ["Casal", "Família com crianças", "Solo", "Grupo", "Negócios"], "idade": ["18–30", "30–50", "50+", "Indiferente"], "ocasiao": ["Romântico", "Celebração", "Business", "Cultural", "Sem turistas", "Instagram", "Relax", "Noite"], "ruido": ["Silencioso", "Conversa fácil", "Animado", "Alto"], "grupo": ["até 2", "até 4", "até 6", "até 10", "mais de 10"], "espera": ["Entra direto", "Até 15 min", "Reservar antes", "Lista de espera real"], "ateTarde": ["Fecha 22h", "Fecha 23h", "Fecha 00h", "Depois de 00h", "Não se aplica"], "naoIndicar": ["Casal", "Família com crianças", "Solo", "Grupo", "Negócios", "18–30", "50+", "Orçamento baixo", "Pouco tempo"], "fracos": ["Fila", "Barulhento", "Reserva difícil", "Caro para o que entrega", "Turístico demais", "Serviço lento", "Sem opção vegetariana", "Escada sem elevador", "Fecha cedo", "Mesa apertada"], "tri": ["Sim", "Não", "Não sei"], "dias": ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]}, "temas": ["Centro", "Brera", "Leonardo", "Milão secreta", "Moda", "Design", "Porta Venezia", "Porta Romana / Ticinese", "Porta Nuova / Isola", "Navigli", "CityLife / San Siro", "Luxury concierge"], "cores": ["#D7282F", "#00A04B", "#E0A000", "#0069B4", "#8A53B0", "#E2725B", "#1FA8A0", "#C2185B", "#5B7FD4", "#7D9E3A", "#B0722A", "#6E6E9C"], "cats": ["Alta gastronomia", "Aperitivo", "Bar/Cocktail", "Café/Pasticceria", "Experiência", "Hotel", "Igreja", "Loja/Moda", "Mercado", "Monumento", "Museu", "Parque", "Restaurante", "Rooftop", "Trattoria"], "bairros": ["5Vie", "Bicocca", "Brera", "Castello", "Centrale", "Centro", "Chiaravalle", "CityLife", "Corso Vercelli/Pagano", "Duomo", "Isola", "Navigli", "Ovest (Soderini/San Gimignano)", "Porta Nuova", "Porta Romana", "Porta Venezia", "Portello", "QT8", "Quadrilatero", "Repubblica", "San Siro", "Sant'Ambrogio", "Sarpi/Monumentale", "Ticinese", "Tortona"]};
+const KEY = 'fichas-milano-v1';
+let recs = {};
+try { recs = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { recs = {}; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(recs)); } catch(e){ toast('Não consegui salvar neste navegador.'); } }
+function rec(id){ if(!recs[id]) recs[id] = {}; return recs[id]; }
+function done(id){ const r = recs[id]; return !!(r && r.visitado); }
+
+let week = 1, cur = null, tab = 'fichas';
+const $ = s => document.querySelector(s);
+const el = (t,c,x) => { const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n; };
+
+function toast(m){ const t=$('#msg'); if(t){ t.textContent=m; setTimeout(()=>{ if(t.textContent===m) t.textContent=''; },2600);} }
+
+/* ---------- lista ---------- */
+function renderWeeks(){
+  const w = $('#weeks'); w.innerHTML='';
+  for(let i=1;i<=12;i++){
+    const tot = D.places.filter(p=>p.sem===i).length;
+    const dn = D.places.filter(p=>p.sem===i && done(p.id)).length;
+    const b = el('button','wk');
+    b.setAttribute('aria-pressed', i===week);
+    const dot = el('span','dot'); dot.style.background = D.cores[i-1];
+    b.appendChild(dot); b.appendChild(el('span',null,'Semana '+i));
+    b.appendChild(el('span','n',dn+'/'+tot));
+    b.onclick = ()=>{ week=i; renderWeeks(); renderList(); };
+    w.appendChild(b);
+  }
+  const all = D.places.filter(p=>done(p.id)).length;
+  $('#count').textContent = all + ' de ' + D.places.length + ' fichas';
+}
+
+function renderList(){
+  const list = $('#list'); list.innerHTML='';
+  const ps = D.places.filter(p=>p.sem===week);
+  const dn = ps.filter(p=>done(p.id)).length;
+  $('#theme').textContent = D.temas[week-1];
+  $('#themesub').textContent = dn + ' de ' + ps.length + ' visitados';
+  const bar = $('#bar'); bar.style.width = (ps.length? dn/ps.length*100 : 0) + '%';
+  bar.style.background = D.cores[week-1];
+  ps.forEach(p=>{
+    const r = recs[p.id] || {};
+    const c = el('button','card' + (done(p.id)?' done':''));
+    const body = el('div','body');
+    body.appendChild(el('div','nm',p.nome));
+    body.appendChild(el('div','meta', p.cat + ' · ' + p.bairro + (p.fecha && p.fecha!=='Nunca' ? ' · fecha ' + p.fecha.toLowerCase() : '')));
+    const tags = el('div','tags');
+    (r.faixa? [r.faixa]:[]).concat(r.ocasiao||[], r.composicao||[]).slice(0,4).forEach(t=> tags.appendChild(el('span','tag',t)));
+    if(r.lgbtq==='Sim') tags.appendChild(el('span','tag sc','LGBTQIA+ friendly'));
+    if(tags.children.length) body.appendChild(tags);
+    c.appendChild(body);
+    const st = el('div','st');
+    if(r.nota){ const b=el('b',null,r.nota); st.appendChild(b); st.appendChild(el('span',null,'nota')); }
+    else st.textContent = done(p.id) ? 'sem nota' : 'a visitar';
+    c.appendChild(st);
+    c.onclick = ()=>openSheet(p.id);
+    list.appendChild(c);
+  });
+}
+
+/* ---------- ficha ---------- */
+function group(label, hint){
+  const g = el('div','grp');
+  const l = el('label'); l.appendChild(document.createTextNode(label));
+  if(hint){ const e=el('em',null,'  '+hint); l.appendChild(e); }
+  g.appendChild(l); return g;
+}
+function single(g, id, field, opts, cls){
+  const box = el('div','opts');
+  opts.forEach(o=>{
+    const b = el('button','opt'+(cls?' '+cls:''), o);
+    const set = ()=> b.setAttribute('aria-pressed', rec(id)[field]===o);
+    set();
+    b.onclick = ()=>{ const r=rec(id); r[field] = (r[field]===o? null : o); save(); box.querySelectorAll('.opt').forEach((x,i)=>x.setAttribute('aria-pressed', r[field]===opts[i])); touched(id); };
+    box.appendChild(b);
+  });
+  g.appendChild(box); return g;
+}
+function multi(g, id, field, opts, cls){
+  const box = el('div','opts');
+  opts.forEach(o=>{
+    const b = el('button','opt'+(cls?' '+cls:''), o);
+    const has = ()=> (rec(id)[field]||[]).indexOf(o)>-1;
+    b.setAttribute('aria-pressed', has());
+    b.onclick = ()=>{ const r=rec(id); r[field]=r[field]||[]; const i=r[field].indexOf(o);
+      if(i>-1) r[field].splice(i,1); else r[field].push(o);
+      b.setAttribute('aria-pressed', has()); save(); touched(id); };
+    box.appendChild(b);
+  });
+  g.appendChild(box); return g;
+}
+function text(g, id, field, ph){
+  const t = el('textarea'); t.placeholder = ph; t.value = rec(id)[field]||'';
+  t.oninput = ()=>{ rec(id)[field]=t.value; };
+  t.onblur = ()=>{ save(); touched(id); };
+  g.appendChild(t); return g;
+}
+function touched(id){ const r=rec(id); if(!r.data) r.data = new Date().toISOString().slice(0,10); save(); $('#msg').textContent='Salvo'; setTimeout(()=>{ if($('#msg').textContent==='Salvo') $('#msg').textContent=''; },1200); }
+
+function openSheet(id){
+  cur = id;
+  const p = D.places.find(x=>x.id===id), r = rec(id), v = D.vocab;
+  const inner = $('#sheetinner'); inner.innerHTML='';
+
+  const h = el('div','shead'); const row = el('div','row');
+  const hb = el('div'); hb.style.flex='1';
+  hb.appendChild(el('h2',null,p.nome));
+  hb.appendChild(el('p',null,'Semana '+p.sem+' · '+p.cat+' · '+p.bairro));
+  row.appendChild(hb);
+  const x = el('button','x','✕'); x.setAttribute('aria-label','Fechar'); x.onclick = closeSheet;
+  row.appendChild(x); h.appendChild(row); inner.appendChild(h);
+
+  const info = el('div','info');
+  const add = (k,val,href)=>{ if(!val) return; const d=el('div'); d.appendChild(el('b',null,k+': '));
+    if(href){ const a=el('a',null,val); a.href=href; d.appendChild(a); } else d.appendChild(document.createTextNode(val));
+    info.appendChild(d); };
+  add('Endereço', p.end); add('Telefone', p.tel, p.tel? 'tel:'+p.tel.replace(/\s/g,'') : null);
+  add('Site', p.site, p.site? 'https://'+p.site : null);
+  add('Horário', p.hor); add('Fecha', p.fecha); add('Reserva', p.reserva);
+  add('Transporte', p.transp); if(p.dur) add('Duração', p.dur+' min');
+  info.appendChild(el('div','hint','Confirme horário no dia antes de mandar um hóspede.'));
+  inner.appendChild(info);
+
+  const gv = group('Já visitei');
+  const tg = el('div','tog');
+  ['Sim','Ainda não'].forEach((o,i)=>{
+    const b = el('button','opt',o);
+    b.setAttribute('aria-pressed', i===0 ? !!r.visitado : !r.visitado);
+    b.onclick = ()=>{ r.visitado = (i===0); save(); openSheet(id); renderWeeks(); renderList(); };
+    tg.appendChild(b);
+  });
+  gv.appendChild(tg); inner.appendChild(gv);
+
+  const gn = group('Nota', '1 fraco · 5 excelente');
+  const sb = el('div','stars');
+  [1,2,3,4,5].forEach(n=>{
+    const b = el('button','star',String(n));
+    b.setAttribute('aria-pressed', r.nota===n);
+    b.onclick = ()=>{ r.nota = (r.nota===n? null : n); save(); touched(id);
+      sb.querySelectorAll('.star').forEach((x,i)=>x.setAttribute('aria-pressed', r.nota===i+1)); renderList(); };
+    sb.appendChild(b);
+  });
+  gn.appendChild(sb); inner.appendChild(gn);
+
+  inner.appendChild(single(group('Faixa de preço'), id, 'faixa', v.faixa));
+  inner.appendChild(multi(group('Serve bem para', 'pode marcar vários'), id, 'composicao', v.composicao));
+  inner.appendChild(multi(group('Faixa etária'), id, 'idade', v.idade));
+  inner.appendChild(multi(group('Ocasião'), id, 'ocasiao', v.ocasiao));
+  inner.appendChild(single(group('Ruído'), id, 'ruido', v.ruido));
+  inner.appendChild(single(group('Tamanho de grupo que cabe'), id, 'grupo', v.grupo));
+
+  const tri = (label, field) => {
+    const g = group(label);
+    const box = el('div','tog');
+    v.tri.forEach(o=>{
+      const cls = o==='Não' ? 'no' : (o==='Não sei' ? 'mb' : '');
+      const b = el('button','opt'+(cls?' '+cls:''), o);
+      b.setAttribute('aria-pressed', r[field]===o);
+      b.onclick = ()=>{ r[field] = (r[field]===o? null : o); save(); touched(id);
+        box.querySelectorAll('.opt').forEach((x,i)=>x.setAttribute('aria-pressed', r[field]===v.tri[i])); renderList(); };
+      box.appendChild(b);
+    });
+    g.appendChild(box); return g;
+  };
+  inner.appendChild(tri('Serve com chuva', 'chuva'));
+  inner.appendChild(tri('LGBTQIA+ friendly', 'lgbtq'));
+  inner.appendChild(tri('Acessível (mobilidade reduzida)', 'acessivel'));
+
+  inner.appendChild(text(group('Descrição do lugar', 'use o ditado do celular'), id, 'descricao',
+    'Como é o lugar, com suas palavras.'));
+  inner.appendChild(text(group('Ponto forte', 'o que você contaria a um hóspede'), id, 'pontoForte',
+    'Ex.: a sala do Mantegna fica vazia às 9h.'));
+  inner.appendChild(text(group('Plano B', 'o equivalente mais próximo'), id, 'planoB',
+    'Ex.: Ambrosiana, 8 min a pé.'));
+
+  const det = el('details');
+  det.appendChild(el('summary',null,'Detalhes (opcional)'));
+  det.appendChild(single(group('Espera'), id, 'espera', v.espera));
+  det.appendChild(single(group('Até que horas'), id, 'ateTarde', v.ateTarde));
+  det.appendChild(tri('Aceita cães', 'pet'));
+  det.appendChild(multi(group('Não indicar para'), id, 'naoIndicar', v.naoIndicar, 'no'));
+  det.appendChild(multi(group('Pontos fracos'), id, 'fracos', v.fracos, 'no'));
+  inner.appendChild(det);
+
+  $('#sheet').classList.add('open');
+  document.body.style.overflow='hidden';
+  $('#sheet').scrollTop = 0;
+}
+function closeSheet(){ save(); $('#sheet').classList.remove('open'); document.body.style.overflow=''; cur=null; renderWeeks(); renderList(); }
+
+/* ---------- consulta ---------- */
+const Q = { composicao:'Qualquer', idade:'Qualquer', ocasiao:'Qualquer', faixa:'Qualquer',
+            dia:'Qualquer', chuva:'Não', cat:'Qualquer', bairro:'Qualquer',
+            grupo:'Qualquer', lgbtq:'Não', acess:'Não', sovis:'Não' };
+
+function qrow(label, key, opts){
+  const g = group(label);
+  const box = el('div','opts');
+  opts.forEach(o=>{
+    const b = el('button','opt',o);
+    b.setAttribute('aria-pressed', Q[key]===o);
+    b.onclick = ()=>{ Q[key]=o; box.querySelectorAll('.opt').forEach((x,i)=>x.setAttribute('aria-pressed', Q[key]===opts[i])); runQuery(); };
+    box.appendChild(b);
+  });
+  g.appendChild(box); return g;
+}
+
+function score(p){
+  const r = recs[p.id] || {};
+  if(Q.sovis==='Sim' && !r.visitado) return -1;
+  if(Q.dia!=='Qualquer' && p.fecha===Q.dia) return -1;
+  if(Q.lgbtq==='Sim' && r.lgbtq!=='Sim') return -1;
+  if(Q.acess==='Sim' && r.acessivel!=='Sim') return -1;
+  const ni = r.naoIndicar||[];
+  if(Q.composicao!=='Qualquer' && ni.indexOf(Q.composicao)>-1) return -1;
+  if(Q.idade!=='Qualquer' && ni.indexOf(Q.idade)>-1) return -1;
+  let s = 0;
+  if(Q.composicao==='Qualquer') s+=1; else if((r.composicao||[]).indexOf(Q.composicao)>-1) s+=3;
+  if(Q.idade==='Qualquer') s+=1; else if((r.idade||[]).indexOf(Q.idade)>-1 || (r.idade||[]).indexOf('Indiferente')>-1) s+=2;
+  if(Q.ocasiao==='Qualquer') s+=1; else if((r.ocasiao||[]).indexOf(Q.ocasiao)>-1) s+=3;
+  if(Q.faixa!=='Qualquer'){ const f = r.faixa || p.faixaBase; if(f===Q.faixa) s+=2; else s-=1; }
+  if(Q.chuva==='Sim'){ if(r.chuva==='Sim') s+=3; else if(r.chuva==='Não') s-=6; }
+  if(Q.cat!=='Qualquer'){ if(p.cat===Q.cat) s+=2; else s-=3; }
+  if(Q.bairro!=='Qualquer'){ if(p.bairro===Q.bairro) s+=2; else s-=1; }
+  if(Q.grupo!=='Qualquer'){ const ord=D.vocab.grupo; const need=ord.indexOf(Q.grupo), has=ord.indexOf(r.grupo||'');
+    if(has<0) s-=0.5; else if(has>=need) s+=2; else s-=5; }
+  s += (r.nota||0);
+  if(r.visitado) s += 0.5;
+  return s;
+}
+
+function runQuery(){
+  const out = $('#qout'); out.innerHTML='';
+  const ranked = D.places.map(p=>({p, s:score(p)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  if(!ranked.length){
+    out.appendChild(el('div','empty','Nenhum lugar atende. Alargue os critérios, ou preencha mais fichas — a consulta usa o que você marcou.'));
+    return;
+  }
+  const lab = ['A — principal','B — equivalente','C — alternativa'];
+  ranked.forEach((x,i)=>{
+    const r = recs[x.p.id]||{};
+    const c = el('div','res');
+    c.appendChild(el('div','rk',lab[i]));
+    c.appendChild(el('div','nm',x.p.nome));
+    const bits = [x.p.cat, x.p.bairro, r.faixa||x.p.faixaBase];
+    if(x.p.transp) bits.push(x.p.transp);
+    c.appendChild(el('div','meta',bits.filter(Boolean).join(' · ')));
+    const why = el('div','why');
+    if(r.pontoForte){ const b=el('b',null,'Ponto forte: '); why.appendChild(b); why.appendChild(document.createTextNode(r.pontoForte)); why.appendChild(el('br')); }
+    if(r.planoB){ const b=el('b',null,'Plano B: '); why.appendChild(b); why.appendChild(document.createTextNode(r.planoB)); why.appendChild(el('br')); }
+    if(r.fracos && r.fracos.length){ const b=el('b',null,'Atenção: '); why.appendChild(b); why.appendChild(document.createTextNode(r.fracos.join(', '))); }
+    if(!why.children.length && !why.textContent) why.appendChild(document.createTextNode('Ficha ainda sem anotações suas.'));
+    c.appendChild(why);
+    out.appendChild(c);
+  });
+}
+
+function renderQuery(){
+  const q = $('#query'); q.innerHTML='';
+  const v = D.vocab, any = ['Qualquer'];
+  q.appendChild(qrow('Composição', 'composicao', any.concat(v.composicao)));
+  q.appendChild(qrow('Faixa etária', 'idade', any.concat(v.idade.filter(x=>x!=='Indiferente'))));
+  q.appendChild(qrow('Ocasião', 'ocasiao', any.concat(v.ocasiao)));
+  q.appendChild(qrow('Faixa de preço', 'faixa', any.concat(v.faixa)));
+  q.appendChild(qrow('Dia da semana', 'dia', any.concat(v.dias)));
+  q.appendChild(qrow('Está chovendo', 'chuva', ['Não','Sim']));
+  q.appendChild(qrow('Tamanho do grupo', 'grupo', any.concat(v.grupo)));
+  q.appendChild(qrow('Categoria', 'cat', any.concat(D.cats)));
+  q.appendChild(qrow('Bairro', 'bairro', any.concat(D.bairros)));
+  q.appendChild(qrow('Precisa ser LGBTQIA+ friendly', 'lgbtq', ['Não','Sim']));
+  q.appendChild(qrow('Precisa ser acessível', 'acess', ['Não','Sim']));
+  q.appendChild(qrow('Só lugares que já visitei', 'sovis', ['Não','Sim']));
+  runQuery();
+}
+
+/* ---------- exportar ---------- */
+const COLS = ['sem','nome','cat','bairro','end','tel','site','fecha','hor','reserva','transp'];
+const RCOLS = ['visitado','data','nota','faixa','composicao','idade','ocasiao','ruido','grupo',
+               'chuva','lgbtq','acessivel','pet','espera','ateTarde','naoIndicar','fracos',
+               'descricao','pontoForte','planoB'];
+function csv(){
+  const head = ['Semana','Nome','Categoria','Bairro','Endereço','Telefone','Site','Fecha','Horário','Reserva','Transporte',
+    'Visitado','Data','Nota','Faixa','Serve para','Faixa etária','Ocasião','Ruído','Grupo',
+    'Chuva','LGBTQIA+ friendly','Acessível','Cães','Espera','Até tarde','Não indicar para','Pontos fracos',
+    'Descrição','Ponto forte','Plano B'];
+  const esc = s => '"' + String(s==null?'':s).replace(/"/g,'""') + '"';
+  const rows = [head.map(esc).join(',')];
+  D.places.forEach(p=>{
+    const r = recs[p.id]||{};
+    const a = COLS.map(k=>p[k]);
+    const b = RCOLS.map(k=>{ const val=r[k]; return Array.isArray(val)? val.join('; ') : (k==='visitado'? (val?'Sim':'Não') : val); });
+    rows.push(a.concat(b).map(esc).join(','));
+  });
+  return rows.join('\n');
+}
+function renderExport(){
+  const e = $('#export'); e.innerHTML='';
+  const dn = D.places.filter(p=>done(p.id)).length;
+  const nt = D.places.filter(p=>(recs[p.id]||{}).nota).length;
+  const st = el('div','info');
+  st.appendChild(el('div',null,'Visitados: '+dn+' de '+D.places.length));
+  st.appendChild(el('div',null,'Com nota: '+nt));
+  e.appendChild(st);
+  const c = el('button','btn','Copiar tabela (CSV)');
+  c.onclick = ()=>{ const t=csv();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(()=>toast('Copiado. Cole numa planilha.'), ()=>toast('Selecione o texto abaixo e copie à mão.'));
+    } else toast('Selecione o texto abaixo e copie à mão.'); };
+  e.appendChild(c);
+  e.appendChild(el('p','hint','Cole numa planilha em branco e use "texto para colunas" com vírgula, ou cole direto no Google Sheets.'));
+  const pre = el('pre','csv', csv());
+  e.appendChild(pre);
+  const r = el('button','btn ghost','Apagar tudo');
+  r.style.marginTop='14px';
+  r.onclick = ()=>{ if(confirm('Apagar todas as suas anotações? Não dá para desfazer.')){ recs={}; save(); renderWeeks(); renderList(); renderExport(); toast('Anotações apagadas.'); } };
+  e.appendChild(r);
+  e.appendChild(el('p','hint','As anotações ficam só neste aparelho e neste navegador. Copie o CSV de vez em quando.'));
+}
+
+/* ---------- abas ---------- */
+function setTab(t){
+  tab = t;
+  ['fichas','consulta','export'].forEach(k=>{
+    $('#pane-'+k).style.display = (k===t? 'block':'none');
+    $('#tab-'+k).setAttribute('aria-selected', k===t);
+  });
+  $('#weekwrap').style.display = (t==='fichas'? 'block':'none');
+  if(t==='consulta') renderQuery();
+  if(t==='export') renderExport();
+}
+
+renderWeeks(); renderList(); setTab('fichas');
+$('#tab-fichas').onclick = ()=>setTab('fichas');
+$('#tab-consulta').onclick = ()=>setTab('consulta');
+$('#tab-export').onclick = ()=>setTab('export');
+$('#sheetsave').onclick = closeSheet;
+window.addEventListener('beforeunload', save);
+</script>
+</body>
+</html>
