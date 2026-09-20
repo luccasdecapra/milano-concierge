@@ -3,12 +3,14 @@
 Duas ferramentas pessoais para a transição de chef de sala para concierge de hotel em Milão.
 
 **Guia Mestre** — `index.html`
-Página de leitura com 33 módulos: geografia, história, museus, gastronomia, transporte,
-perfis culturais por nacionalidade, casos difíceis, hotéis 5★ e diretório de contatos.
+Página de leitura com 35 módulos: geografia, história, museus, gastronomia, transporte,
+perfis culturais por nacionalidade, casos difíceis, hotéis 5★, experiências premium
+com operadores e contatos, diretório de contatos e uma página de preparação para entrevista.
 Tem sumário lateral, busca e modo claro/escuro. Não guarda estado.
 
 **Fichas** — `fichas.html`
-App de campo. 119 lugares organizados em 12 semanas de visitas. Em cada ficha:
+App de campo. 163 lugares organizados em 15 blocos de visitas — 12 semanas por bairro,
+mais rede de serviços, hotéis boutique e experiências premium. Em cada ficha:
 nota, faixa de preço, perfil, ocasião, ruído, tamanho de grupo, serve com chuva,
 LGBTQIA+ friendly, acessível, pontos fracos e três campos de texto.
 Aba de consulta que devolve A/B/C a partir do perfil do hóspede.
@@ -19,8 +21,8 @@ Aba de consulta que devolve A/B/C a partir do perfil do hóspede.
 2. Subir `index.html`, `fichas.html` e este README.
 3. Settings → Pages → Source: `Deploy from a branch` → branch `main`, pasta `/ (root)`.
 4. Aguardar um minuto. O endereço fica:
-   - Guia: `http://luccasdecapra.github.io/milano-concierge/`
-   - Fichas: `luccasdecapra.github.io/milano-concierge/fichas.html`
+   - Guia: `https://<usuario>.github.io/milano-concierge/`
+   - Fichas: `https://<usuario>.github.io/milano-concierge/fichas.html`
 
 ## Importante sobre os dados das fichas
 
