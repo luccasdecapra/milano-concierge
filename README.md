@@ -3,14 +3,15 @@
 Duas ferramentas pessoais para a transição de chef de sala para concierge de hotel em Milão.
 
 **Guia Mestre** — `index.html`
-Página de leitura com 35 módulos: geografia, história, museus, gastronomia, transporte,
+Página de leitura com 36 módulos: geografia, história, museus, gastronomia, transporte,
 perfis culturais por nacionalidade, casos difíceis, hotéis 5★, experiências premium
-com operadores e contatos, diretório de contatos e uma página de preparação para entrevista.
+com operadores e contatos, diretório de contatos, página de preparação para entrevista e um índice
+de consulta com os 183 endereços em 52 categorias.
 Tem sumário lateral, busca e modo claro/escuro. Não guarda estado.
 
 **Fichas** — `fichas.html`
-App de campo. 163 lugares organizados em 15 blocos de visitas — 12 semanas por bairro,
-mais rede de serviços, hotéis boutique e experiências premium. Em cada ficha:
+App de campo. 183 lugares organizados em 16 blocos de visitas — 12 semanas por bairro, mais rede de
+serviços, hotéis boutique, experiências premium e vida noturna. Em cada ficha:
 nota, faixa de preço, perfil, ocasião, ruído, tamanho de grupo, serve com chuva,
 LGBTQIA+ friendly, acessível, pontos fracos e três campos de texto.
 Aba de consulta que devolve A/B/C a partir do perfil do hóspede.
