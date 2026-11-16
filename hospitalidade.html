@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hospitalidade de Luxo — Resumo Aplicado à Terrazza (edição 13/11/2026)</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#faf8f4;--surface:#ffffff;--surface2:#f3efe7;--text:#1d1b18;--muted:#6a645a;--line:#e3ddd0;--accent:#8c2f1b;--accent2:#1f5f5b;--link:#8c2f1b;--code:#f0ebe0;--shadow:0 1px 2px rgba(0,0,0,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15130f;--surface:#1e1b16;--surface2:#26221b;--text:#ece6da;--muted:#a59d8e;--line:#39332a;--accent:#e0805f;--accent2:#6fc0b8;--link:#e0805f;--code:#2a251d;--shadow:none}}
+:root[data-theme="dark"]{--bg:#15130f;--surface:#1e1b16;--surface2:#26221b;--text:#ece6da;--muted:#a59d8e;--line:#39332a;--accent:#e0805f;--accent2:#6fc0b8;--link:#e0805f;--code:#2a251d;--shadow:none}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--link)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;padding:10px 16px}
+header.top .brand{font-weight:700;letter-spacing:.2px;white-space:nowrap}
+header.top input{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;font-size:.95rem}
+header.top button{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:8px 11px;font:inherit;font-size:.9rem;cursor:pointer}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:0;max-width:1320px;margin:0 auto}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:18px 12px 30px 18px;font-size:.88rem}
+nav.toc a{display:block;padding:6px 10px;border-radius:8px;text-decoration:none;color:var(--muted);line-height:1.35}
+nav.toc a:hover{background:var(--surface2);color:var(--text)}
+nav.toc a.active{background:var(--surface2);color:var(--accent);font-weight:600}
+nav.toc a.hide{display:none}
+main{padding:24px clamp(16px,3vw,44px) 80px;min-width:0}
+.hero{background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;margin-bottom:26px}
+.hero h1{margin:0 0 6px;font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;letter-spacing:-.5px}
+.hero p{margin:6px 0;color:var(--muted)}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.82rem}
+h2{font-size:1.55rem;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);letter-spacing:-.2px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent2)}
+h4{margin:18px 0 6px}
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px clamp(14px,2.4vw,28px) 18px;margin-bottom:22px;box-shadow:var(--shadow)}
+.sec.hidden{display:none}
+.tw{overflow-x:auto;margin:12px 0 18px;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--surface2);font-weight:650;position:sticky;top:0;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--surface2) 40%,transparent)}
+blockquote{margin:14px 0;padding:10px 16px;border-left:4px solid var(--accent);background:var(--surface2);border-radius:0 10px 10px 0;color:var(--text)}
+blockquote p{margin:6px 0}
+code{background:var(--code);padding:1px 5px;border-radius:5px;font-size:.9em}
+pre{background:var(--code);padding:14px;border-radius:12px;overflow:auto;font-size:.82rem;line-height:1.5}
+pre code{background:none;padding:0}
+ul,ol{padding-left:1.3rem}li{margin:3px 0}
+mark.hl{background:#ffd54a;color:#111;border-radius:3px}
+.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
+.empty.show{display:block}
+footer{color:var(--muted);font-size:.85rem;text-align:center;padding:10px 0 30px}
+.menu{display:none}
+@media (max-width:960px){
+ .layout{grid-template-columns:1fr}
+ nav.toc{position:fixed;inset:calc(env(safe-area-inset-top,0px) + 58px) 0 0 0;background:var(--bg);z-index:15;max-height:none;padding:14px 16px calc(env(safe-area-inset-bottom,0px) + 30px);transform:translateX(-102%);transition:transform .2s}
+ nav.toc.open{transform:none}
+ .menu{display:inline-block}
+ header.top .brand{display:none}
+ table{min-width:480px}
+}
+@media print{header.top,nav.toc{display:none}.layout{display:block}.sec{break-inside:auto;box-shadow:none}.sec.hidden{display:block}}
+</style>
+<style>
+.hero .links{margin-top:12px;font-size:.95rem}
+.hero .links a{font-weight:600}
+main ol>li>ul{margin-top:4px}
+main ol>li{margin:8px 0}
+.sec h3:first-of-type{margin-top:18px}
+</style>
+</head>
+<body>
+<header class="top">
+ <button id="menu" class="menu" aria-label="Sumário">☰ Sumário</button>
+ <span class="brand">🏰 Milão · Hospitalidade</span>
+ <input id="q" type="search" placeholder="Buscar (ex.: 5 A's, Ritz, 23h, briefing…)" aria-label="Buscar">
+ <button id="theme" aria-label="Alternar tema">◐ Tema</button>
+</header>
+<div class="layout">
+<nav class="toc" id="toc"><a href="#como-usar-este-resumo" data-sec="s-como-usar-este-resumo">Como usar este resumo</a><a href="#os-7-principios-em-que-todas-as-escolas-concordam" data-sec="s-os-7-principios-em-que-todas-as-escolas-concordam">Os 7 princípios em que todas as escolas concordam</a><a href="#escola-por-escola-o-que-cada-uma-ensina" data-sec="s-escola-por-escola-o-que-cada-uma-ensina">Escola por escola: o que cada uma ensina</a><a href="#a-jornada-do-hospede-na-terrazza-momento-a-momento" data-sec="s-a-jornada-do-hospede-na-terrazza-momento-a-momento">A jornada do hóspede na Terrazza, momento a momento</a><a href="#quando-algo-da-errado" data-sec="s-quando-algo-da-errado">Quando algo dá errado</a><a href="#rituais-de-equipe" data-sec="s-rituais-de-equipe">Rituais de equipe</a><a href="#ideias-de-baixo-custo-para-propor" data-sec="s-ideias-de-baixo-custo-para-propor">Ideias de baixo custo para propor</a><a href="#como-transformar-isso-em-experiencia-real" data-sec="s-como-transformar-isso-em-experiencia-real">Como transformar isso em experiência real</a><a href="#fontes-para-aprofundar" data-sec="s-fontes-para-aprofundar">Fontes para aprofundar</a></nav>
+<main>
+ <div class="hero">
+  <h1>Hospitalidade de Luxo — Resumo Aplicado à Terrazza</h1>
+  <p>Edição de <strong>13 de novembro de 2026</strong> · 9 módulos · o que as grandes escolas de hospitalidade ensinam, traduzido em ações para a sala.</p>
+  <p class="links">Também neste app: <a href="index.html">Guia Mestre de Milão</a> · <a href="fichas.html">Fichas de lugares</a> · <a href="vinhos.html">Guia de vinhos</a>.</p>
+ </div>
+ <section class="sec" id="s-como-usar-este-resumo" data-title="Como usar este resumo"><h2 id="como-usar-este-resumo">Como usar este resumo</h2>
+<p>Este resumo junta o que as principais escolas de hospitalidade de luxo ensinam e traduz cada ideia em uma ação possível na Terrazza. Ele foi pensado para três usos diferentes.</p>
+<ul>
+<li><strong>No serviço, a partir de amanhã:</strong> as seções "A jornada do hóspede" e "Quando algo dá errado" trazem comportamentos que você aplica sozinho, sem custo e sem pedir autorização.</li>
+<li><strong>Com a equipe e a direção:</strong> "Rituais de equipe" e "Ideias para propor" são propostas. Tudo que envolve cortesia, custo ou mudança de regra está marcado como <strong>[proposta]</strong>, porque depende de aprovação.</li>
+<li><strong>Na carreira:</strong> a seção final mostra como registrar o que você aplicar, para virar experiência real e comprovável no CV e nas entrevistas.</li>
+</ul>
+<p>As fontes são a Ritz-Carlton, a Forbes Travel Guide, Danny Meyer, Will Guidara, a escola italiana de sala (ALMA, Intrecci, Michelin), Les Clefs d'Or, as academias de butler e a pesquisa de Cornell. Os links estão no fim. Se quiser, este conteúdo pode virar um módulo novo da La Bibbia.</p>
+</section><section class="sec" id="s-os-7-principios-em-que-todas-as-escolas-concordam" data-title="Os 7 princípios em que todas as escolas concordam"><h2 id="os-7-principios-em-que-todas-as-escolas-concordam">Os 7 princípios em que todas as escolas concordam</h2>
+<p>Ritz, Forbes, Danny Meyer, Will Guidara e a escola italiana de sala usam palavras diferentes, mas ensinam os mesmos sete princípios.</p>
+<ol>
+<li><strong>Serviço é técnica; hospitalidade é como a pessoa se sente.</strong> Serviço é levar o prato certo à mesa certa. Hospitalidade é o hóspede sair sentindo que alguém estava do lado dele. A Forbes resume assim: o padrão importa, mas o foco é a emoção do hóspede.</li>
+<li><strong>Antecipar o que não foi pedido.</strong> O nível de luxo começa quando você resolve a necessidade antes de ela virar pedido: o casaco, o carregador, a mesa mais protegida do vento.</li>
+<li><strong>Reconhecer a pessoa, não a mesa.</strong> Nome, ocasião, idioma, preferência. Quem se sente reconhecido volta e escreve sobre isso.</li>
+<li><strong>Consistência vem do padrão; encanto vem do improviso.</strong> O básico precisa sair igual em todo turno. O momento memorável é o gesto fora do roteiro que só funciona porque o básico está garantido.</li>
+<li><strong>Quem está na frente do hóspede precisa poder resolver.</strong> As melhores casas dão autonomia à linha de frente. A pesquisa de Cornell mostra que a orientação ao hóspede de quem atende pesa mais na satisfação do que o apoio dos supervisores.</li>
+<li><strong>A equipe vem antes do hóspede.</strong> Uma equipe bem tratada e bem informada trata bem quem chega. Não existe hospitalidade de fora para dentro.</li>
+<li><strong>O erro bem resolvido fideliza mais do que a noite perfeita.</strong> Toda casa erra. A diferença está em como o erro termina.</li>
+</ol>
+</section><section class="sec" id="s-escola-por-escola-o-que-cada-uma-ensina" data-title="Escola por escola: o que cada uma ensina"><h2 id="escola-por-escola-o-que-cada-uma-ensina">Escola por escola: o que cada uma ensina</h2>
+<p>Cada escola tem uma ideia central que vale levar para a sala. Abaixo, o essencial de cada uma e o que dá para usar na Terrazza.</p>
+<h3 id="ritz-carlton-o-padrao-de-ouro">Ritz-Carlton: o padrão de ouro</h3>
+<ul>
+<li><strong>Lema:</strong> "Somos damas e cavalheiros servindo damas e cavalheiros". A equipe é anfitriã, não serviçal.</li>
+<li><strong>Os Três Passos do Serviço:</strong> cumprimento caloroso e sincero, usando o nome; antecipar e atender as necessidades, inclusive as não ditas; despedida afetuosa, de novo usando o nome.</li>
+<li><strong>Empoderamento:</strong> cada membro da equipe pode tomar decisões para resolver o problema do hóspede na hora, sem escalar. Segundo a própria Ritz, isso reduz o custo de resolver problemas.</li>
+<li><strong>Psicologia do serviço:</strong> eles treinam a equipe nos aspectos emocionais do atendimento, em estar presente no momento e em usar a surpresa.</li>
+<li><strong>Leve para a Terrazza:</strong> os Três Passos cabem em qualquer mesa, a partir de hoje.</li>
+</ul>
+<h3 id="forbes-travel-guide-o-inspetor-invisivel">Forbes Travel Guide: o inspetor invisível</h3>
+<ul>
+<li>Inspetores anônimos avaliam hotéis, restaurantes e spas com até 900 padrões objetivos.</li>
+<li>O foco declarado é como o hóspede se sente. Para a Forbes, cada hóspede tem a própria definição de serviço excepcional.</li>
+<li>Comportamentos que aparecem com frequência nos padrões de luxo: acompanhar em vez de apontar; usar o nome com naturalidade; nunca deixar alguém esperando sem ser reconhecido; recomendar com conhecimento real do produto.</li>
+<li><strong>Leve para a Terrazza:</strong> trate cada mesa como se pudesse ser o inspetor.</li>
+</ul>
+<h3 id="danny-meyer-hospitalidade-iluminada">Danny Meyer: Hospitalidade Iluminada</h3>
+<ul>
+<li><strong>Ordem de prioridade:</strong> primeiro a equipe, depois hóspedes, comunidade, fornecedores e investidores. Equipe feliz é o que gera hóspede feliz.</li>
+<li><strong>Serviço x hospitalidade:</strong> serviço é a entrega técnica; hospitalidade é como essa entrega faz a pessoa se sentir.</li>
+<li><strong>Contratar "51%":</strong> pessoas cujas habilidades pesam um pouco mais no lado emocional do que no técnico. As cinco que ele procura: calor otimista, inteligência, ética de trabalho, empatia, autoconsciência com integridade.</li>
+<li><strong>Presunção de boa-fé:</strong> assumir sempre o melhor sobre colegas e hóspedes antes de reagir.</li>
+<li><strong>Os 5 A's para erros:</strong> detalhados na seção "Quando algo dá errado".</li>
+</ul>
+<h3 id="will-guidara-hospitalidade-irracional">Will Guidara: Hospitalidade Irracional</h3>
+<ul>
+<li><strong>Regra 95/5:</strong> gerir 95% do negócio com rigor, centavo por centavo, para poder gastar os últimos 5% "sem juízo" em gestos que viram memória.</li>
+<li><strong>Lendas:</strong> gestos personalizados nascidos de pistas da conversa. O exemplo famoso: turistas comentaram que não tinham provado o cachorro-quente de rua de Nova York, e ele comprou um e serviu no meio do menu degustação.</li>
+<li><strong>Dreamweavers:</strong> na Eleven Madison Park, uma pessoa ficava dedicada a transformar essas pistas em gestos durante o serviço.</li>
+<li><strong>Liderança:</strong> elogiar com emoção, corrigir sem emoção, só com os fatos.</li>
+<li><strong>Atenção:</strong> a lenda não conserta uma operação quebrada. Primeiro o básico, depois o encanto.</li>
+</ul>
+<h3 id="a-escola-italiana-de-sala-alma-intrecci-amira-michelin">A escola italiana de sala (ALMA, Intrecci, AMIRA, Michelin)</h3>
+<ul>
+<li><strong>A sala vale metade da noite:</strong> a vencedora do Michelin Service Award 2025, Vanessa Melis, diz que o serviço conta 50% da experiência.</li>
+<li><strong>Saber, saber fazer e saber ser:</strong> a filosofia da Accademia Intrecci. O "saber ser" (postura, presença, educação) é o que distingue o profissional de sala.</li>
+<li><strong>Gestualidade:</strong> a ALMA forma profissionais para devolver valor ao gesto feito diante do cliente: servir, apresentar, decantar.</li>
+<li><strong>O que o Michelin premia:</strong> Giulia Tavolaro (2026) resumiu seu trabalho em profissionalismo, naturalidade e equipe. Stefania Lepore (2027) foi premiada por um serviço de cuidado, sensibilidade e calor.</li>
+</ul>
+<h3 id="les-clefs-d-or-a-rede-do-concierge">Les Clefs d'Or: a rede do concierge</h3>
+<ul>
+<li>Fundada em 1952 sobre dois pilares: serviço e amizade.</li>
+<li>Cerca de 4.000 membros em mais de 80 países. A força deles é a rede: um concierge resolve o impossível ligando para outro.</li>
+<li>Ética impecável é condição para entrar.</li>
+<li><strong>Leve para a Terrazza:</strong> os concierges dos hotéis que ligam para a casa são parceiros. Tratar bem quem indica é tratar bem o hóspede antes de ele chegar.</li>
+</ul>
+<h3 id="butler-e-servico-privado">Butler e serviço privado</h3>
+<ul>
+<li>A formação de butler para hotéis gira em torno de criar conexão emocional e antecipar: a antecipação é o que define a experiência.</li>
+<li>Discrição total e memória de preferências: o que a pessoa bebe, onde gosta de sentar, o que não quer.</li>
+</ul>
+<h3 id="omotenashi-a-hospitalidade-japonesa">Omotenashi: a hospitalidade japonesa</h3>
+<ul>
+<li>Servir de coração, sem esperar nada em troca, e antecipar a necessidade antes que o hóspede perceba que a tem.</li>
+<li>O gesto é discreto: o hóspede sente o cuidado, mas não vê o esforço.</li>
+</ul>
+<h3 id="o-que-a-pesquisa-mostra-cornell-e-50-best">O que a pesquisa mostra (Cornell e 50 Best)</h3>
+<ul>
+<li>A orientação ao hóspede de quem atende está fortemente ligada à satisfação. O apoio percebido dos supervisores teve influência fraca.</li>
+<li>A satisfação do hóspede tem ligação direta com o resultado financeiro do hotel.</li>
+<li>Tecnologia melhora a experiência, desde que usada no lugar certo. Vale para os apps da casa: eles devem liberar tempo para o hóspede, nunca substituí-lo.</li>
+<li>O Tuju, de São Paulo, ganhou o prêmio de hospitalidade do 50 Best 2026 atendendo deliberadamente menos clientes para personalizar mais. Menos volume, mais atenção.</li>
+</ul>
+</section><section class="sec" id="s-a-jornada-do-hospede-na-terrazza-momento-a-momento" data-title="A jornada do hóspede na Terrazza, momento a momento"><h2 id="a-jornada-do-hospede-na-terrazza-momento-a-momento">A jornada do hóspede na Terrazza, momento a momento</h2>
+<p>A noite na Terrazza tem dez momentos, e cada um tem um padrão de luxo que cabe na casa. O mais delicado é a virada das 23h, quando a mesa precisa ser liberada para a festa.</p>
+<ol>
+<li><strong>Antes de chegar (reserva ou ligação de hotel)</strong><ul>
+<li>Padrão: as casas de luxo se preparam antes do hóspede entrar. Ocasião, idioma e alergias chegam antes da pessoa.</li>
+<li>Na Terrazza: quando um concierge de hotel liga, perguntar o nome do hóspede, a ocasião e o nome do próprio concierge. Anotar na reserva e agradecer ao concierge depois.</li>
+</ul>
+</li>
+<li><strong>Chegada (os primeiros 10 segundos)</strong><ul>
+<li>Padrão: ninguém fica parado sem ser reconhecido. Mesmo ocupado, um olhar e um gesto dizem "já vejo você".</li>
+<li>Na Terrazza: cumprimentar no idioma do hóspede, usar o nome da reserva e acompanhar até a mesa em vez de apontar.</li>
+</ul>
+</li>
+<li><strong>Acomodação e a vista</strong><ul>
+<li>Padrão: antecipar o conforto antes do pedido.</li>
+<li>Na Terrazza: a vista do Duomo é parte do serviço. Uma frase sobre a catedral, oferecer a foto antes que peçam, checar sol, vento e frio.</li>
+</ul>
+</li>
+<li><strong>As regras da casa, ditas cedo e com calor</strong><ul>
+<li>Padrão: transparência antecipada. Regra dita no início é informação; regra dita no fim vira surpresa ruim.</li>
+<li>Na Terrazza: na acomodação, em tom de dica útil, contar o mínimo do aperitivo, que a cozinha fecha por volta das 22h30 e que às 23h a terrazza vira festa.</li>
+</ul>
+</li>
+<li><strong>Cardápio e vinho</strong><ul>
+<li>Padrão: recomendar com conhecimento real e a partir do gosto da pessoa, não do que precisa sair.</li>
+<li>Na Terrazza: perguntar o que a pessoa gosta antes de sugerir. O Guia de Vinhos ajuda a cruzar prato e vinho no idioma dela. Alergia anotada é alergia confirmada com a cozinha.</li>
+</ul>
+</li>
+<li><strong>Durante o serviço: colecionar pistas</strong><ul>
+<li>Padrão: Danny Meyer chama de "sempre colecionar pontos". Primeira vez em Milão, lua de mel, aniversário, alguém com frio: cada pista é uma chance.</li>
+<li>Na Terrazza: check-back discreto, sem interromper conversa nem foto. Repor antes de faltar.</li>
+</ul>
+</li>
+<li><strong>Ocasiões especiais</strong><ul>
+<li>Padrão: é aqui que nascem as "lendas" do Guidara.</li>
+<li>Na Terrazza: uma vela, um bilhete no idioma do casal, a melhor foto com o Duomo. Gestos com custo dependem de autorização <strong>[proposta]</strong>.</li>
+</ul>
+</li>
+<li><strong>A virada das 23h</strong><ul>
+<li>Padrão: o fim da experiência pesa tanto quanto o começo. Pedir a mesa de volta é um momento de serviço, não de cobrança.</li>
+<li>Na Terrazza: avisar pessoalmente uns 30 minutos antes, agradecer e oferecer uma alternativa quando existir. Exemplo: "Foi um prazer ter vocês. Às 23h esta mesa passa para a festa; posso preparar algo para fecharem a noite com calma?"</li>
+</ul>
+</li>
+<li><strong>Conta e despedida</strong><ul>
+<li>Padrão: o terceiro passo da Ritz, despedida afetuosa com o nome.</li>
+<li>Na Terrazza: conta sem pressa, despedida pelo nome e, para turistas, uma dica de Milão para o dia seguinte. É aqui que o seu guia de Milão vira serviço.</li>
+</ul>
+</li>
+<li><strong>Depois da noite</strong><ul>
+<li>Padrão: a relação continua depois da porta.</li>
+<li>Na Terrazza: pedir review só quando o hóspede demonstrou que gostou, de forma pessoal. Anotar preferências de quem pode voltar e responder as reviews.</li>
+</ul>
+</li>
+</ol>
+</section><section class="sec" id="s-quando-algo-da-errado" data-title="Quando algo dá errado"><h2 id="quando-algo-da-errado">Quando algo dá errado</h2>
+<p>O método mais usado em restaurantes de alto nível são os 5 A's de Danny Meyer. A ideia central é "escrever um ótimo último capítulo": o erro aconteceu, mas o final da história ainda é seu.</p>
+<ol>
+<li><strong>Awareness (perceber):</strong> notar o problema antes de o hóspede reclamar. Olhar a sala, ler os rostos.</li>
+<li><strong>Acknowledgment (reconhecer):</strong> admitir o que aconteceu, sem minimizar.</li>
+<li><strong>Apology (desculpar-se):</strong> um "sinto muito" sincero e sem álibi. Nada de "a cozinha está lenta" ou "estamos com pouca gente".</li>
+<li><strong>Action (agir):</strong> resolver na hora, sem passar o problema para o hóspede resolver.</li>
+<li><strong>Additional generosity (generosidade extra):</strong> um gesto a mais que mostra que o pedido de desculpas é sincero. Na Terrazza, este passo depende de autorização <strong>[proposta]</strong>.</li>
+</ol>
+<p>Para a equipe, vale a regra do Guidara: elogiar com emoção, corrigir sem emoção, só com os fatos.</p>
+<h3 id="frases-prontas">Frases prontas</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Situação</th>
+<th>Em inglês</th>
+<th>Em italiano</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prato atrasado</td>
+<td>I'm so sorry for the wait. I've just checked with the kitchen: your dishes will be out in five minutes.</td>
+<td>Mi scusi per l'attesa. Ho appena parlato con la cucina: tra cinque minuti è al tavolo.</td>
+</tr>
+<tr>
+<td>Prato com problema</td>
+<td>You're absolutely right, and I'm sorry. Let me take this back and fix it right away.</td>
+<td>Ha perfettamente ragione, mi dispiace. Lo porto indietro e lo sistemiamo subito.</td>
+</tr>
+<tr>
+<td>Incômodo com o mínimo</td>
+<td>I completely understand. On the terrace there's a minimum of €20 per person; may I suggest something you'll really enjoy?</td>
+<td>La capisco benissimo. In terrazza c'è un minimo di 20 € a persona; posso suggerirle qualcosa che le piacerà davvero?</td>
+</tr>
+<tr>
+<td>Liberar a mesa às 23h</td>
+<td>It's been a pleasure having you. At 11 the terrace becomes a party and this table is reserved. Can I bring you anything to close the evening?</td>
+<td>È stato un piacere avervi qui. Alle 23 la terrazza diventa festa e questo tavolo è riservato. Posso portarvi qualcosa per chiudere la serata?</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="o-passo-que-falta-autonomia">O passo que falta: autonomia</h3>
+<p>A Ritz resolve rápido porque quem está na frente do hóspede pode decidir. Hoje, na Terrazza, qualquer cortesia precisa de autorização, e o hóspede espera enquanto isso acontece.</p>
+<p><strong>[proposta]</strong> Um pequeno limite de cortesia por noite, definido pela direção, para o coordenador de sala usar em recuperação de serviço (um digestivo, uma sobremesa). O argumento para a direção: menos escaladas no meio do serviço e reviews protegidas.</p>
+</section><section class="sec" id="s-rituais-de-equipe" data-title="Rituais de equipe"><h2 id="rituais-de-equipe">Rituais de equipe</h2>
+<p>O ritual que sustenta o padrão das grandes casas é o briefing diário antes do serviço. Na Ritz ele se chama line-up e acontece todos os dias, em todos os hotéis.</p>
+<h3 id="briefing-de-10-minutos-antes-de-abrir-proposta">Briefing de 10 minutos antes de abrir <strong>[proposta]</strong></h3>
+<ol>
+<li><strong>A noite de hoje:</strong> reservas especiais, aniversários, hóspedes indicados por hotéis, alergias já conhecidas.</li>
+<li><strong>Produto:</strong> um prato e um vinho para recomendar hoje, com uma frase pronta para cada.</li>
+<li><strong>O padrão da semana:</strong> um comportamento só, lembrado todo dia.</li>
+<li><strong>Uma história de serviço:</strong> algo que alguém da equipe fez bem na noite anterior, contado em 30 segundos. Elogio com emoção, na frente de todos.</li>
+</ol>
+<h3 id="um-padrao-por-semana">Um padrão por semana</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Semana</th>
+<th>Padrão</th>
+<th>Como saber se funcionou</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Usar o nome do hóspede na chegada e na despedida</td>
+<td>Reviews que citam alguém da equipe pelo nome</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Acompanhar até a mesa, nunca apontar</td>
+<td>Observação do coordenador durante o serviço</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Contar as regras da casa na acomodação, em tom de dica</td>
+<td>Menos atrito na virada das 23h</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Despedir-se com uma dica de Milão</td>
+<td>Comentários dos hóspedes e reviews</td>
+</tr>
+</tbody>
+</table></div>
+<p>Depois da quarta semana, o ciclo recomeça ou ganha um padrão novo.</p>
+<h3 id="como-falar-com-a-equipe">Como falar com a equipe</h3>
+<ul>
+<li>Presumir boa-fé antes de corrigir: quase sempre o erro vem de informação que não chegou.</li>
+<li>Corrigir em particular e com fatos; elogiar em público e com emoção.</li>
+<li>Explicar o porquê de cada regra. Quem entende a regra consegue explicá-la ao hóspede com calor.</li>
+</ul>
+</section><section class="sec" id="s-ideias-de-baixo-custo-para-propor" data-title="Ideias de baixo custo para propor"><h2 id="ideias-de-baixo-custo-para-propor">Ideias de baixo custo para propor</h2>
+<p>Comece pelas ideias de custo zero que você já pode testar, e leve as outras à direção com resultado na mão.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Ideia</th>
+<th>De onde vem</th>
+<th>Custo</th>
+<th>Precisa de aprovação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oferecer a foto com o Duomo no melhor ângulo, antes que peçam</td>
+<td>Lendas do Guidara</td>
+<td>Zero</td>
+<td>Não</td>
+</tr>
+<tr>
+<td>Livro de lendas: registrar as melhores histórias de serviço de cada semana</td>
+<td>Line-up da Ritz</td>
+<td>Zero</td>
+<td>Não</td>
+</tr>
+<tr>
+<td>Campo de ocasião na reserva: aniversário, lua de mel, primeira vez em Milão</td>
+<td>Preparação antes da chegada</td>
+<td>Zero</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Agradecer ao concierge do hotel depois da visita do hóspede indicado</td>
+<td>Les Clefs d'Or</td>
+<td>Zero</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Cartão trilíngue com o horário da cozinha e a virada das 23h, entregue na acomodação</td>
+<td>Transparência antecipada</td>
+<td>Baixo</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Cartão com três dicas de Milão no idioma do hóspede, entregue na despedida</td>
+<td>Concierge e Guidara</td>
+<td>Baixo</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Kit de conforto para o rooftop: manta, carregador, elástico de cabelo para o vento</td>
+<td>Antecipação e omotenashi</td>
+<td>Baixo</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Limite de cortesia por noite para recuperação de serviço</td>
+<td>Empoderamento da Ritz</td>
+<td>Baixo</td>
+<td>Sim</td>
+</tr>
+</tbody>
+</table></div>
+<p>O agradecimento aos concierges conversa com a ideia de a Terrazza ter um contato oficial com os hotéis 5 estrelas de Milão: é uma forma de começar isso sem cargo novo.</p>
+</section><section class="sec" id="s-como-transformar-isso-em-experiencia-real" data-title="Como transformar isso em experiência real"><h2 id="como-transformar-isso-em-experiencia-real">Como transformar isso em experiência real</h2>
+<p>Estudar é conhecimento; aplicar e registrar é experiência. Só vai para o CV o que você fez de fato, com um resultado que alguém pode verificar.</p>
+<h3 id="registre-cada-caso-em-quatro-linhas">Registre cada caso em quatro linhas</h3>
+<p>Para entrevistas, hotéis de luxo usam o método STAR. Anote cada caso assim, no dia em que acontecer:</p>
+<ul>
+<li><strong>Situação:</strong> o contexto, em uma frase.</li>
+<li><strong>Tarefa:</strong> o que precisava ser resolvido.</li>
+<li><strong>Ação:</strong> o que você fez, com o princípio que aplicou.</li>
+<li><strong>Resultado:</strong> review, retorno do hóspede, agradecimento, mesa salva.</li>
+</ul>
+<p>O caso da hóspede Stella já é um exemplo pronto: casal comemorando aniversário de namoro (situação), transformar uma noite comum em memória (tarefa), mesa melhor e bolo com "Auguri" (ação), review de 5 estrelas com foto (resultado). Em entrevista, isso se chama anticipatory service e guest recognition.</p>
+<h3 id="frases-de-cv-so-depois-de-acontecer">Frases de CV, só depois de acontecer</h3>
+<ul>
+<li>Se o briefing for adotado: "Introduced a daily 10-minute pre-service briefing covering VIP arrivals, allergies and a weekly service standard."</li>
+<li>Se o roteiro da virada das 23h for adotado: "Designed a guest-friendly script for the nightly table transition, reducing friction at closing."</li>
+<li>Já é verdade hoje: "Point of escalation for guest issues and VIP care on an 85-seat rooftop with a largely international clientele."</li>
+</ul>
+<h3 id="vocabulario-que-os-hoteis-reconhecem">Vocabulário que os hotéis reconhecem</h3>
+<p>Guest recognition, anticipatory service, service recovery, empowerment, pre-arrival preparation, line-up. Usar esses termos com um caso real por trás mostra que você fala a língua do luxo, não só que leu sobre ela.</p>
+<h3 id="uma-metrica-para-acompanhar">Uma métrica para acompanhar</h3>
+<p>Conte, todo mês, as reviews que citam você pelo nome. É o número mais simples e mais convincente de que o seu jeito de atender funciona.</p>
+</section><section class="sec" id="s-fontes-para-aprofundar" data-title="Fontes para aprofundar"><h2 id="fontes-para-aprofundar">Fontes para aprofundar</h2>
+<p><strong>Livros:</strong> "Unreasonable Hospitality", de Will Guidara (2022), e "Setting the Table", de Danny Meyer (2006).</p>
+<ul>
+<li><a href="https://ritzcarltonleadershipcenter.com/courses/a-culture-of-excellence-building-success-from-within-onsite-course/" target="_blank" rel="noopener">Ritz-Carlton Leadership Center: Gold Standards e empoderamento</a></li>
+<li><a href="https://ritzcarltonleadershipcenter.com/?p=3307" target="_blank" rel="noopener">Ritz-Carlton Leadership Center: psicologia do serviço</a></li>
+<li><a href="https://forbestravelguide.com/certifications/verified-luxury-certifications/" target="_blank" rel="noopener">Forbes Travel Guide: Verified Luxury Certifications</a></li>
+<li><a href="https://www.journaldespalaces.com/en/pressrelease-53786-forbes-travel-guide-lobster-ink-launch-the-ultimate-online-luxury-service-training-program.html" target="_blank" rel="noopener">Journal des Palaces: treinamento online da Forbes e os 900 padrões</a></li>
+<li><a href="https://www.journaldespalaces.com/en/article-72204-training-megan-torrance-senior-vice-president-of-learning-development-at-forbes-travel-guide.html" target="_blank" rel="noopener">Journal des Palaces: entrevista com Megan Torrance, da Forbes</a></li>
+<li><a href="https://www.supersummary.com/setting-the-table/summary/" target="_blank" rel="noopener">Resumo de "Setting the Table" (Danny Meyer)</a></li>
+<li><a href="https://risewithdrew.com/the-rule-of-95-5-how-small-strategic-splurges-create-unforgettable-experiences/" target="_blank" rel="noopener">A regra 95/5 de Will Guidara</a></li>
+<li><a href="https://www.hireinsouth.com/post/unreasonable-hospitality-book-summary-key-lessons-for-any-business" target="_blank" rel="noopener">Dreamweavers e lendas em "Unreasonable Hospitality"</a></li>
+<li><a href="https://guide.michelin.com/it/it/notizia/michelin-guide-ceremony/michelin-service-award-vanessa-melis-premiata-per-l-impeccabile-servizio-di-sala-da-pascucci-al-porticciolo" target="_blank" rel="noopener">Michelin Service Award: Vanessa Melis</a></li>
+<li><a href="https://guide.michelin.com/it/it/notizia/michelin-guide-ceremony/michelin-service-award-2026-giulia-tavolaro-del-maxi-racconta-l-arte-della-sala" target="_blank" rel="noopener">Michelin Service Award 2026: Giulia Tavolaro</a></li>
+<li><a href="https://www.quotidianodelsud.it/calabria/societa-e-cultura/alimentazione/2026/11/12/guida-michelin-2027-in-calabria-a-stefania-lepore-il-service-award-confermate-le-cinque-stelle" target="_blank" rel="noopener">Michelin Service Award 2027: Stefania Lepore</a></li>
+<li><a href="https://www.umbriaecultura.it/accademia-intrecci-open-day/" target="_blank" rel="noopener">Accademia Intrecci: sala e acolhimento</a></li>
+<li><a href="https://www.alma.scuolacucina.it/wp-content/uploads/2026/01/brochure_SALA_2026_compressed.pdf" target="_blank" rel="noopener">ALMA: Corso Superiore di Sala, Bar &amp; Sommellerie</a></li>
+<li><a href="https://www.hospitalitynet.org/organization/17011428/les-clefs-dor" target="_blank" rel="noopener">Les Clefs d'Or</a></li>
+<li><a href="https://butlerschool.com/hotels-and-resorts/hotel-and-resort-training" target="_blank" rel="noopener">The International Butler Academy: treinamento para hotéis</a></li>
+<li><a href="https://ecommons.cornell.edu/server/api/core/bitstreams/42156400-6322-44f2-b71e-cad1d8fd9e54/content" target="_blank" rel="noopener">Cornell CHR: padrões e satisfação do hóspede em restaurantes</a></li>
+<li><a href="https://www.hospitalitynet.org/news/4047662.html" target="_blank" rel="noopener">Cornell CHR e J.D. Power: satisfação e resultado financeiro</a></li>
+<li><a href="https://hospitalitytech.com/balancing-customer-service-next-gen-automation" target="_blank" rel="noopener">Cornell CHR: tecnologia e serviço pessoal</a></li>
+<li><a href="https://www.rustourismnews.com/2026/09/24/sao-paulos-tuju-wins-the-50-best-restaurants-2026-art-of-hospitality-award/" target="_blank" rel="noopener">Tuju, prêmio de hospitalidade do 50 Best 2026</a></li>
+</ul>
+</section>
+ <div id="empty" class="empty">Nenhum módulo encontrado para essa busca.</div>
+ <footer>Material de estudo e aplicação. · Edição 13/11/2026</footer>
+</main>
+</div>
+<script>
+(function(){
+ var root=document.documentElement;
+ try{var t=localStorage.getItem('mc-theme');if(t)root.setAttribute('data-theme',t)}catch(e){}
+ document.getElementById('theme').addEventListener('click',function(){
+   var cur=root.getAttribute('data-theme');
+   if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+   var nx=cur==='dark'?'light':'dark';root.setAttribute('data-theme',nx);
+   try{localStorage.setItem('mc-theme',nx)}catch(e){}
+ });
+ var nav=document.getElementById('toc');
+ document.getElementById('menu').addEventListener('click',function(){nav.classList.toggle('open')});
+ nav.addEventListener('click',function(e){if(e.target.tagName==='A')nav.classList.remove('open')});
+ var secs=[].slice.call(document.querySelectorAll('.sec'));
+ var links={};[].forEach.call(nav.querySelectorAll('a'),function(a){links[a.dataset.sec]=a});
+ var q=document.getElementById('q'),empty=document.getElementById('empty');
+ function clearHl(){[].forEach.call(document.querySelectorAll('mark.hl'),function(m){var p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()})}
+ function hl(node,term){
+   var w=document.createTreeWalker(node,NodeFilter.SHOW_TEXT,null),list=[],n;
+   while(n=w.nextNode()){if(n.nodeValue.toLowerCase().indexOf(term)>-1&&n.parentNode.tagName!=='SCRIPT'&&n.parentNode.tagName!=='STYLE')list.push(n)}
+   list.slice(0,60).forEach(function(n){
+     var i=n.nodeValue.toLowerCase().indexOf(term);if(i<0)return;
+     var r=n.splitText(i);r.splitText(term.length);
+     var m=document.createElement('mark');m.className='hl';m.textContent=r.nodeValue;r.parentNode.replaceChild(m,r);
+   });
+ }
+ q.addEventListener('input',function(){
+   var term=q.value.trim().toLowerCase();clearHl();var shown=0;
+   secs.forEach(function(s){
+     var ok=!term||s.textContent.toLowerCase().indexOf(term)>-1;
+     s.classList.toggle('hidden',!ok);links[s.id].classList.toggle('hide',!ok);
+     if(ok){shown++;if(term&&term.length>1)hl(s,term)}
+   });
+   empty.classList.toggle('show',shown===0);
+ });
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+   [].forEach.call(nav.querySelectorAll('a.active'),function(a){a.classList.remove('active')});
+   var a=links[e.target.id];if(a)a.classList.add('active')}})},{rootMargin:'-20% 0px -70% 0px'});
+ secs.forEach(function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>
